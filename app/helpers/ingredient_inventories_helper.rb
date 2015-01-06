@@ -1,0 +1,2 @@
+module IngredientInventoriesHelper
+end

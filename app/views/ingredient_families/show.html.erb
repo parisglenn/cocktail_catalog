@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ingredient_family.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @ingredient_family.category_id %>
+</p>
+
+<%= link_to 'Edit', edit_ingredient_family_path(@ingredient_family) %> |
+<%= link_to 'Back', ingredient_families_path %>

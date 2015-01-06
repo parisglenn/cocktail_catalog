@@ -1,0 +1,29 @@
+<h1>Listing ingredient_families</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ingredient_families.each do |ingredient_family| %>
+      <tr>
+        <td><%= ingredient_family.name %></td>
+        <td><%= ingredient_family.category_id %></td>
+        <td><%= link_to 'Show', ingredient_family %></td>
+        <td><%= link_to 'Edit', edit_ingredient_family_path(ingredient_family) %></td>
+        <td><%= link_to 'Destroy', ingredient_family, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ingredient family', new_ingredient_family_path %>
