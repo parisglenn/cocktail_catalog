@@ -6,8 +6,18 @@ gem 'rails', '4.0.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
+gem 'thin'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
+
+gem 'bootstrap-datepicker-rails'
+gem 'chosen-rails'
+
+gem "therubyracer"
+gem "twitter-bootstrap-rails"
+
+gem 'acts_as_commentable_with_threading'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -30,6 +40,19 @@ gem 'jbuilder', '~> 1.2'
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
+end
+
+group :development, :test do 
+	gem 'sqlite3'
+	gem 'better_errors'
+	gem 'binding_of_caller'
+  gem 'rspec-rails', '~>2.14.0'
+  gem 'guard-rspec', require: false
+  gem 'pry', '~> 0.9.12.6'
+  gem 'hirb', '~> 0.7.1'
+  gem 'database_cleaner'
+  # gem 'capybara'
+  # gem 'capybara-webkit'
 end
 
 # Use ActiveModel has_secure_password

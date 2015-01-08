@@ -17,7 +17,7 @@
   <tbody>
     <% @ingredients.each do |ingredient| %>
       <tr>
-        <td><%= ingredient.type_id %></td>
+        <td><%= ingredient.ingredient_type.name %></td>
         <td><%= ingredient.name %></td>
         <td><%= ingredient.brand %></td>
         <td><%= ingredient.make %></td>
