@@ -49,6 +49,7 @@ GEM
       railties (>= 3.0)
       sass-rails (>= 3.2)
     chunky_png (1.3.1)
+    cocoon (1.2.6)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -80,6 +81,8 @@ GEM
     execjs (2.2.1)
     ffi (1.9.6)
     formatador (0.2.5)
+    formtastic (3.1.3)
+      actionpack (>= 3.2.13)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -89,6 +92,8 @@ GEM
     guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
+    haml (4.0.6)
+      tilt
     hike (1.2.3)
     hirb (0.7.2)
     hitimes (1.2.2)
@@ -113,11 +118,14 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.10.1)
+    nested_form (0.3.2)
     polyglot (0.3.5)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry-nav (0.2.4)
+      pry (>= 0.9.10, < 0.11.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -212,13 +220,18 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-datepicker-rails
   chosen-rails
+  cocoon
   coffee-rails (~> 4.0.0)
   database_cleaner
+  formtastic (~> 3.0)
   guard-rspec
+  haml
   hirb (~> 0.7.1)
   jbuilder (~> 1.2)
   jquery-rails
-  pry (~> 0.9.12.6)
+  nested_form
+  pry
+  pry-nav
   rails (= 4.0.2)
   rspec-rails (~> 2.14.0)
   sass-rails (~> 4.0.0)

@@ -17,7 +17,7 @@
 
 <p>
   <strong>Glass:</strong>
-  <%= @cocktail.glass %>
+  <%= @cocktail.glass.name %>
 </p>
 
 <p>
@@ -33,6 +33,15 @@
 <p>
   <strong>Priority:</strong>
   <%= @cocktail.priority %>
+</p>
+
+<p>
+  <strong>Ingredients:</strong>
+  <ul>
+  <% @cocktail.ingredients_to_cocktails.each do |i| %>
+    <li><%= i.show %></li>
+  <% end %>
+</ul>
 </p>
 
 <%= link_to 'Edit', edit_cocktail_path(@cocktail) %> |

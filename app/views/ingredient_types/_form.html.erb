@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :ingredient_family_id %><br>
-    <%= f.number_field :ingredient_family_id %>
+    <%= f.select :ingredient_family_id, options_for_select(@ingredient_family_dropdown, @ingredient_type.ingredient_family_id), {}, class: 'chosen-select' %>
   </div>
   <div class="actions">
     <%= f.submit %>

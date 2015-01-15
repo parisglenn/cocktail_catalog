@@ -7,7 +7,7 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @ingredient_family.category_id %>
+  <%= @ingredient_family.ingredient_category.name %>
 </p>
 
 <%= link_to 'Edit', edit_ingredient_family_path(@ingredient_family) %> |

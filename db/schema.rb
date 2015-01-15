@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150108000056) do
+ActiveRecord::Schema.define(version: 20150113234114) do
 
   create_table "cocktails", force: true do |t|
     t.string   "name"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20150108000056) do
 
   create_table "ingredient_families", force: true do |t|
     t.string   "name"
-    t.integer  "category_id"
+    t.integer  "ingredient_category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -58,9 +58,22 @@ ActiveRecord::Schema.define(version: 20150108000056) do
     t.datetime "updated_at"
   end
 
+  create_table "ingredient_to_cocktail", force: true do |t|
+    t.integer  "ingredient_id"
+    t.integer  "ingredient_modification_id"
+    t.string   "amount"
+    t.integer  "cocktail_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ingredient_to_cocktail", ["cocktail_id"], name: "index_ingredient_to_cocktail_on_cocktail_id"
+  add_index "ingredient_to_cocktail", ["ingredient_id"], name: "index_ingredient_to_cocktail_on_ingredient_id"
+  add_index "ingredient_to_cocktail", ["ingredient_modification_id"], name: "index_ingredient_to_cocktail_on_ingredient_modification_id"
+
   create_table "ingredient_types", force: true do |t|
     t.string   "name"
-    t.integer  "family_id"
+    t.integer  "ingredient_family_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -78,7 +91,7 @@ ActiveRecord::Schema.define(version: 20150108000056) do
   create_table "ingredients_to_cocktails", force: true do |t|
     t.integer  "cocktail_id"
     t.integer  "ingredient_id"
-    t.integer  "modification_id"
+    t.integer  "ingredient_modification_id"
     t.string   "amount"
     t.datetime "created_at"
     t.datetime "updated_at"

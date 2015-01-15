@@ -1,5 +1,6 @@
 class IngredientTypesController < ApplicationController
   before_action :set_ingredient_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_ingredient_families, only: [:new, :edit]
 
   # GET /ingredient_types
   # GET /ingredient_types.json
@@ -67,8 +68,13 @@ class IngredientTypesController < ApplicationController
       @ingredient_type = IngredientType.find(params[:id])
     end
 
+    def set_ingredient_families
+      @ingredient_families = IngredientFamily.all
+      @ingredient_family_dropdown = @ingredient_families.map { |it| [it.name, it.id] }
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def ingredient_type_params
-      params.require(:ingredient_type).permit(:name, :family_id)
+      params.require(:ingredient_type).permit(:name, :ingredient_family_id)
     end
 end

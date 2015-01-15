@@ -19,13 +19,40 @@
     <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
+  <label>Ingredients</label>
+  </br>
+  <% @ingredients.each_with_index do |i, count| %>
+    <input name="ingredient_<%=count%>[amount]" value="<%=i.amount %>">
+    <select name="ingredient_<%=count%>[ingredient_modification_id]" class="chosen-select">
+      <option value></option>
+      <% @modifications_dropdown.each do |name, id| %>
+        <% if i.ingredient_modification_id == id %>
+          <option value='<%=id%>' selected><%=name%></option>
+        <% else %>
+          <option value='<%=id%>'><%=name%></option>
+        <% end %>
+      <% end %>
+    </select>
+    <select name="ingredient_<%=count%>[ingredient_id]" class="chosen-select">
+      <option value></option>
+      <% @ingredients_dropdown.each do |name, id| %>
+        <% if i.ingredient_id == id %>
+          <option value='<%=id%>' selected><%=name%></option>
+        <% else %>
+          <option value='<%=id%>'><%=name%></option>
+        <% end %>
+      <% end %>
+    </select>
+    </br>
+  <% end %>
+<!--   figure out best way to do embeded form -->
   <div class="field">
     <%= f.label :instructions %><br>
     <%= f.text_area :instructions %>
   </div>
   <div class="field">
     <%= f.label :glass_id %><br>
-    <%= f.number_field :glass_id %>
+    <%= f.select :glass_id, options_for_select(@glasses_dropdown, @cocktail.glass_id), {}, class: 'chosen-select' %>
   </div>
   <div class="field">
     <%= f.label :source %><br>
@@ -33,11 +60,11 @@
   </div>
   <div class="field">
     <%= f.label :rating %><br>
-    <%= f.number_field :rating %>
+    <%= f.select :rating, options_for_select(@rating_dropdown, @cocktail.rating), {}, class: 'chosen-select' %>
   </div>
   <div class="field">
     <%= f.label :priority %><br>
-    <%= f.number_field :priority %>
+    <%= f.select :priority, options_for_select(@priority_dropdown, @cocktail.priority), {}, class: 'chosen-select' %>
   </div>
   <div class="actions">
     <%= f.submit %>

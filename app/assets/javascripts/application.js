@@ -18,3 +18,10 @@
 //= require_tree .
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/core
+//= require chosen-jquery
+//= require jquery_nested_form
+
+$(function(){
+	$(".chosen-select").chosen()
+	$(".chosen-select").trigger("chosen:updated");
+});

@@ -1,5 +1,6 @@
 class CocktailsController < ApplicationController
   before_action :set_cocktail, only: [:show, :edit, :update, :destroy]
+  before_action :set_dependents, only: [:new, :edit]
 
   # GET /cocktails
   # GET /cocktails.json
@@ -15,10 +16,16 @@ class CocktailsController < ApplicationController
   # GET /cocktails/new
   def new
     @cocktail = Cocktail.new
+    @ingredient = IngredientsToCocktails.new
+    @ingredients = 12.times.map { |i| @ingredient }
   end
 
   # GET /cocktails/1/edit
   def edit
+    @ingredients = @cocktail.ingredients_to_cocktails
+    empty = 12 - @ingredients.count
+    @ingredient = IngredientsToCocktails.new
+    @ingredients += empty.times.map { |i| @ingredient }
   end
 
   # POST /cocktails
@@ -28,6 +35,7 @@ class CocktailsController < ApplicationController
 
     respond_to do |format|
       if @cocktail.save
+        manage_ingredients
         format.html { redirect_to @cocktail, notice: 'Cocktail was successfully created.' }
         format.json { render action: 'show', status: :created, location: @cocktail }
       else
@@ -42,6 +50,7 @@ class CocktailsController < ApplicationController
   def update
     respond_to do |format|
       if @cocktail.update(cocktail_params)
+        manage_ingredients
         format.html { redirect_to @cocktail, notice: 'Cocktail was successfully updated.' }
         format.json { head :no_content }
       else
@@ -65,10 +74,35 @@ class CocktailsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_cocktail
       @cocktail = Cocktail.find(params[:id])
+      #@ingredients = 12.times { @cocktail.ingredients_to_cocktails.build }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cocktail_params
-      params.require(:cocktail).permit(:name, :description, :instructions, :glass, :source, :rating, :priority)
+      params.require(:cocktail).permit(:name, :description, :instructions, :glass_id, :source, :rating, :priority, ingredients_to_cocktails_attributes: [:id, :_destroy, :ingredient_id, :ingredient_modification_id, :cocktail_id, :amount])
+    end
+
+    def set_dependents
+      @glasses_dropdown = Glass.all.map { |g| [g.name, g.id] }
+      @rating_dropdown = (1..10).map { |n| [n, n] }
+      @priority_dropdown =  (1..4).map { |n| [n, n] }
+      @ingredients_dropdown = Ingredient.all.map { |i| [i.name, i.id] }
+      @modifications_dropdown = IngredientModification.all.map { |i| [i.name, i.id] }
+    end
+
+    def manage_ingredients
+      @cocktail.ingredients_to_cocktails.destroy_all
+      params.each do |k, v|
+        if k.include? 'ingredient'
+          v.each do |k1, v1|
+            if v1.present?
+              itc = IngredientsToCocktails.new(v)
+              itc.cocktail_id = @cocktail.id
+              itc.save
+              break
+            end
+          end
+        end
+      end
     end
 end

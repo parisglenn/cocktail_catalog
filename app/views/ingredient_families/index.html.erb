@@ -15,7 +15,7 @@
     <% @ingredient_families.each do |ingredient_family| %>
       <tr>
         <td><%= ingredient_family.name %></td>
-        <td><%= ingredient_family.category_id %></td>
+        <td><%= ingredient_family.ingredient_category.name %></td>
         <td><%= link_to 'Show', ingredient_family %></td>
         <td><%= link_to 'Edit', edit_ingredient_family_path(ingredient_family) %></td>
         <td><%= link_to 'Destroy', ingredient_family, method: :delete, data: { confirm: 'Are you sure?' } %></td>
