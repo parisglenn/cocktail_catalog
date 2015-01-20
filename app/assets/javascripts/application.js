@@ -20,6 +20,7 @@
 //= require bootstrap-datepicker/core
 //= require chosen-jquery
 //= require jquery_nested_form
+//= require jquery.turbolinks
 
 $(function(){
 	$(".chosen-select").chosen()

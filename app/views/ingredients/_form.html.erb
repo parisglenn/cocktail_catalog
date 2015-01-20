@@ -31,7 +31,16 @@
     <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
+  <input type="hidden" value="<%=@div%>" id="div" name="div">
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit onclick: 'handleNewForm();'%>
   </div>
 <% end %>
+
+<script>
+  $(function(){
+    $(".chosen-select").chosen()
+    $(".chosen-select").trigger("chosen:updated");
+    $('.chosen-container').css({"width": "300px"});
+  });
+</script>

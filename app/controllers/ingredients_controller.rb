@@ -16,6 +16,10 @@ class IngredientsController < ApplicationController
   # GET /ingredients/new
   def new
     @ingredient = Ingredient.new
+    @div = params[:div]
+    if @div
+      render partial: 'form' and return
+    end
   end
 
   # GET /ingredients/1/edit
@@ -26,11 +30,17 @@ class IngredientsController < ApplicationController
   # POST /ingredients.json
   def create
     @ingredient = Ingredient.new(ingredient_params)
-
+    @div = params[:div]
     respond_to do |format|
       if @ingredient.save
-        format.html { redirect_to @ingredient, notice: 'Ingredient was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @ingredient }
+        if @div
+          @ingredients_dropdown = Ingredient.all.map { |i| [i.name, i.id] }
+          @new_ingredient = true
+          format.html { render partial: 'cocktails/ingredients_dropdown'}
+        else
+          format.html { redirect_to @ingredient, notice: 'Ingredient was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @ingredient }
+        end
       else
         format.html { render action: 'new' }
         format.json { render json: @ingredient.errors, status: :unprocessable_entity }

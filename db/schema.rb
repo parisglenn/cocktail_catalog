@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113234114) do
+ActiveRecord::Schema.define(version: 20150119150912) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "cocktails", force: true do |t|
     t.string   "name"
@@ -24,6 +27,23 @@ ActiveRecord::Schema.define(version: 20150113234114) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "comments", force: true do |t|
+    t.integer  "commentable_id",   default: 0
+    t.string   "commentable_type"
+    t.string   "title"
+    t.text     "body"
+    t.string   "subject"
+    t.integer  "user_id",          default: 0, null: false
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "glasses", force: true do |t|
     t.string   "name"
@@ -67,9 +87,9 @@ ActiveRecord::Schema.define(version: 20150113234114) do
     t.datetime "updated_at"
   end
 
-  add_index "ingredient_to_cocktail", ["cocktail_id"], name: "index_ingredient_to_cocktail_on_cocktail_id"
-  add_index "ingredient_to_cocktail", ["ingredient_id"], name: "index_ingredient_to_cocktail_on_ingredient_id"
-  add_index "ingredient_to_cocktail", ["ingredient_modification_id"], name: "index_ingredient_to_cocktail_on_ingredient_modification_id"
+  add_index "ingredient_to_cocktail", ["cocktail_id"], name: "index_ingredient_to_cocktail_on_cocktail_id", using: :btree
+  add_index "ingredient_to_cocktail", ["ingredient_id"], name: "index_ingredient_to_cocktail_on_ingredient_id", using: :btree
+  add_index "ingredient_to_cocktail", ["ingredient_modification_id"], name: "index_ingredient_to_cocktail_on_ingredient_modification_id", using: :btree
 
   create_table "ingredient_types", force: true do |t|
     t.string   "name"

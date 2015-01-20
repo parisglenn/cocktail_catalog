@@ -1,0 +1,62 @@
+// # Place all the behaviors and hooks related to the matching controller here.
+// # All this logic will automatically be available in application.js.
+// # You can use CoffeeScript in this file: http://coffeescript.org/
+  
+  function addNewIngredient(uri){
+  // if (event.currentTarget.status != 200){
+  //     event.preventDefault()
+  //   }
+    var request = $.ajax({
+        url: uri,
+        method: 'GET',
+        dataType: 'html'
+    });
+
+    request.done(function(data){
+      $("#existing_ingredient_modal_body").html(data);
+      $("#existing_ingredient_modal").modal('show');
+        
+    });    
+}
+
+function handleNewForm(){
+    f = event.currentTarget.form
+    form = $(f)
+    div = form.find('input[id="div"]').val()
+    if (div){
+      event.preventDefault();
+
+      var request = $.ajax({
+      url: form.attr('action'),
+      type: "POST",
+      dataType: "html",
+      data: form.serializeArray()
+      });
+      request.success(function(data) {
+            $("#"+div).html(data)
+            $('#existing_ingredient_modal').modal('hide');
+            $(".chosen-select").trigger("chosen:updated");
+      });
+    }
+}
+
+function AssignToInvoice(campaign_id, campaign_type){
+    event.preventDefault();
+    f = event.currentTarget.form
+    form = $(f)
+    invoice_id = form.find('select[id="invoice_entity_invoice_id"]').val()
+    if (invoice_id == "new"){
+      getNewInvoiceForCampaign(form,campaign_type)
+    } else {
+        var request = $.ajax({
+          url: form.attr('action'),
+          type: "POST",
+          dataType: "html",
+          data: form.serializeArray()
+        });
+        request.success(function(data) {
+            $("#row_"+campaign_id+'_'+campaign_type).replaceWith(data)
+            $('#existing_invoice_modal').modal('hide');
+        });
+    }
+}

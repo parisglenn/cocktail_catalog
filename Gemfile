@@ -13,7 +13,7 @@ gem 'sass-rails', '~> 4.0.0'
 
 gem 'bootstrap-datepicker-rails'
 gem 'chosen-rails'
-
+gem 'less-rails'
 gem "therubyracer"
 gem "twitter-bootstrap-rails"
 
@@ -30,6 +30,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-turbolinks'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -44,6 +45,10 @@ gem 'haml'
 gem 'formtastic', '~> 3.0'
 
 gem 'cocoon'
+
+gem 'pg'
+
+gem 'acts_as_commentable_with_threading'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

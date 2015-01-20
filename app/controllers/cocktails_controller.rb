@@ -84,8 +84,8 @@ class CocktailsController < ApplicationController
 
     def set_dependents
       @glasses_dropdown = Glass.all.map { |g| [g.name, g.id] }
-      @rating_dropdown = (1..10).map { |n| [n, n] }
-      @priority_dropdown =  (1..4).map { |n| [n, n] }
+      @rating_dropdown = [nil] + (1..10).map { |n| [n, n] }
+      @priority_dropdown =  [nil] + (1..4).map { |n| [n, n] }
       @ingredients_dropdown = Ingredient.all.map { |i| [i.name, i.id] }
       @modifications_dropdown = IngredientModification.all.map { |i| [i.name, i.id] }
     end
