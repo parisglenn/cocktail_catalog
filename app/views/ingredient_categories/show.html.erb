@@ -7,3 +7,12 @@
 
 <%= link_to 'Edit', edit_ingredient_category_path(@ingredient_category) %> |
 <%= link_to 'Back', ingredient_categories_path %>
+
+<p>
+  <strong>Families:</strong>
+  <ul>
+  <% @ingredient_category.ingredient_families.each do |f| %>
+	<li><%= link_to f.name, f %></li>
+  <% end %>
+	</ul>
+</p>

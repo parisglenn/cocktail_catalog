@@ -39,24 +39,3 @@ function handleNewForm(){
       });
     }
 }
-
-function AssignToInvoice(campaign_id, campaign_type){
-    event.preventDefault();
-    f = event.currentTarget.form
-    form = $(f)
-    invoice_id = form.find('select[id="invoice_entity_invoice_id"]').val()
-    if (invoice_id == "new"){
-      getNewInvoiceForCampaign(form,campaign_type)
-    } else {
-        var request = $.ajax({
-          url: form.attr('action'),
-          type: "POST",
-          dataType: "html",
-          data: form.serializeArray()
-        });
-        request.success(function(data) {
-            $("#row_"+campaign_id+'_'+campaign_type).replaceWith(data)
-            $('#existing_invoice_modal').modal('hide');
-        });
-    }
-}

@@ -7,8 +7,45 @@
 
 <p>
   <strong>Family:</strong>
-  <%= @ingredient_type.ingredient_family.name %>
+  <%= link_to @ingredient_type.ingredient_family.name, ingredient_family_path(@ingredient_type.ingredient_family.id) %>
 </p>
 
 <%= link_to 'Edit', edit_ingredient_type_path(@ingredient_type) %> |
-<%= link_to 'Back', ingredient_types_path %>
+<%= link_to 'All', ingredient_types_path %> | 
+<%= link_to 'New', new_ingredient_type_path %>
+
+
+<div class="row-fluid">
+  <div class="span3">
+    <p>
+      <h1>Cocktails:</h1>
+        <ul>
+          <% @ingredient_type.ingredients.map{|i| i.cocktails}.flatten.uniq.each do |cocktail| %>
+          <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail } %> </li>
+          <% end %>
+        </ul>
+    </p>
+  </div>
+
+  <div class="span3">
+    <p>
+      <h1>Child Ingredients:</h1>
+        <ul>
+          <% @ingredient_type.ingredients.sort_by{ |i| -i.cocktails.count }.each do |ingredient| %>
+          <li> <%= link_to ingredient.name, ingredient_path(ingredient.id) %> (in <%= ingredient.cocktails.count %> cocktails)</li>
+          <% end %>
+        </ul>
+    </p>
+  </div>
+
+  <div class="span3">
+    <p>
+      <h1> Shared Ingredients:</h1>
+        <ul>
+          <% @ingredient_type.ingredients.map{|i| i.shared_ingredients}.flatten.uniq.reject{|si| si.ingredient_type.id == @ingredient_type.id}.sort_by{|i| -i.cocktails.count }.each do |i| %>
+	            <li> <%= link_to i.show(true), ingredient_path(i.id) %> next allow filter option </li>
+          <% end %>
+        </ul>
+    </p>
+  </div>
+</div>

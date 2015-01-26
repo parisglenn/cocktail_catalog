@@ -29,6 +29,7 @@
         </div>
         <div class="span2">
           <select name="ingredient_<%=count%>[ingredient_modification_id]" class="chosen-select" display='inline'>
+            <option>Modification</option>
             <option value></option>
             <% @modifications_dropdown.each do |name, id| %>
               <% if i.ingredient_modification_id == id %>
@@ -61,16 +62,16 @@
       <%= f.select :glass_id, options_for_select(@glasses_dropdown, @cocktail.glass_id), {}, class: 'chosen-select' %>
     </div>
     <div class="field">
-      <%= f.label :source %><br>
-      <%= f.text_area :source %>
+      <%= f.label :source_id %><br>
+      <%= f.select :source_id, options_for_select(@source_dropdown, @cocktail.source_id), {include_blank: "Source"}, class: 'chosen-select', style: 'width: 200px' %>
     </div>
     <div class="field">
       <%= f.label :rating %><br>
-      <%= f.select :rating, options_for_select(@rating_dropdown, @cocktail.rating), {include_blank: "Rating"}}, class: 'chosen-select', style: 'width: 100px' %>
+      <%= f.select :rating, options_for_select(@rating_dropdown, @cocktail.rating), {include_blank: "Rating"}, class: 'chosen-select', style: 'width: 100px' %>
     </div>
     <div class="field">
       <%= f.label :priority %><br>
-      <%= f.select :priority, options_for_select(@priority_dropdown, @cocktail.priority), {include_blank: "1 is high priority"}}, class: 'chosen-select', style: 'width: 100px' %>
+      <%= f.select :priority, options_for_select(@priority_dropdown, @cocktail.priority), {include_blank: "1 is high priority"}, class: 'chosen-select', style: 'width: 100px' %>
     </div>
     <div class="actions btn btn-info">
       <%= f.submit 'Create cocktail', class: 'btn btn-info' %>

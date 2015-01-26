@@ -5,9 +5,20 @@
   <%= @cocktail.name %>
 </p>
 
+<% if @cocktail.description.present? %>
+  <p>
+    <strong>Description:</strong>
+    <%= @cocktail.description %>
+  </p>
+<% end %>
+
 <p>
-  <strong>Description:</strong>
-  <%= @cocktail.description %>
+  <strong>Ingredients:</strong>
+  <ul>
+  <% @cocktail.ingredients_to_cocktails.each do |i| %>
+    <li><%= link_to i.show, ingredient_path(i.ingredient_id) %></li> 
+  <% end %>
+</ul>
 </p>
 
 <p>
@@ -22,7 +33,7 @@
 
 <p>
   <strong>Source:</strong>
-  <%= @cocktail.source %>
+  <%= @cocktail.cocktail_source.name if @cocktail.cocktail_source %>
 </p>
 
 <p>
@@ -35,14 +46,7 @@
   <%= @cocktail.priority %>
 </p>
 
-<p>
-  <strong>Ingredients:</strong>
-  <ul>
-  <% @cocktail.ingredients_to_cocktails.each do |i| %>
-    <li><%= i.show %></li>
-  <% end %>
-</ul>
-</p>
 
 <%= link_to 'Edit', edit_cocktail_path(@cocktail) %> |
-<%= link_to 'Back', cocktails_path %>
+<%= link_to 'All', cocktails_path %> | 
+<%= link_to 'New', new_cocktail_path %>

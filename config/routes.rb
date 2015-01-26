@@ -1,4 +1,6 @@
 CocktailCatalog::Application.routes.draw do
+  resources :cocktail_sources
+
   resources :glasses
 
   resources :ingredient_inventories

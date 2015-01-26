@@ -17,7 +17,7 @@ class IngredientsController < ApplicationController
   def new
     @ingredient = Ingredient.new
     @div = params[:div]
-    if @div
+    if @div.present?
       render partial: 'form' and return
     end
   end
@@ -33,7 +33,7 @@ class IngredientsController < ApplicationController
     @div = params[:div]
     respond_to do |format|
       if @ingredient.save
-        if @div
+        if @div.present?
           @ingredients_dropdown = Ingredient.all.map { |i| [i.name, i.id] }
           @new_ingredient = true
           format.html { render partial: 'cocktails/ingredients_dropdown'}
@@ -80,7 +80,7 @@ class IngredientsController < ApplicationController
 
     def set_ingredient_types
       @ingredient_types = IngredientType.all
-      @ingredient_type_dropdown = @ingredient_types.map { |it| [it.name, it.id] }
+      @ingredient_type_dropdown = @ingredient_types.map { |it| ["#{it.name} (#{it.ingredient_family.name})", it.id] }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -11,21 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119150912) do
+ActiveRecord::Schema.define(version: 20150121003335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cocktail_sources", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cocktails", force: true do |t|
     t.string   "name"
     t.text     "description"
     t.text     "instructions"
     t.integer  "glass_id"
-    t.text     "source"
     t.integer  "rating"
     t.integer  "priority"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "source_id"
   end
 
   create_table "comments", force: true do |t|

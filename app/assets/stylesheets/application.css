@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require_tree .
+ *= require dataTables/bootstrap/2/jquery.dataTables.bootstrap
  *= require bootstrap-datepicker
  *= require chosen
  *= require bootstrap_and_overrides

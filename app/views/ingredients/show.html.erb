@@ -2,7 +2,7 @@
 
 <p>
   <strong>Type:</strong>
-  <%= @ingredient.ingredient_type.name %>
+  <%= link_to @ingredient.ingredient_type.name, ingredient_type_path(@ingredient.ingredient_type.id) %>
 </p>
 
 <p>
@@ -27,3 +27,27 @@
 
 <%= link_to 'Edit', edit_ingredient_path(@ingredient) %> |
 <%= link_to 'Back', ingredients_path %>
+
+<div class="row-fluid">
+  <div class="span6">
+    <p>
+      <h1>Cocktails:</h1>
+        <ul>
+          <% @ingredient.cocktails.each do |cocktail| %>
+          <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail } %> </li>
+          <% end %>
+        </ul>
+    </p>
+  </div>
+
+  <div class="span6">
+    <p>
+      <h1> Shared Ingredients:</h1>
+        <ul>
+          <% @ingredient.shared_ingredients.each do |i| %>
+            <li> <%= link_to i.show(true), ingredient_path(i.id) %> next allow filter option </li>
+          <% end %>
+        </ul>
+    </p>
+  </div>
+</div>

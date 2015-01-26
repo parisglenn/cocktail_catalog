@@ -1,0 +1,21 @@
+<%= form_for(@cocktail_source) do |f| %>
+  <% if @cocktail_source.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cocktail_source.errors.count, "error") %> prohibited this cocktail_source from being saved:</h2>
+
+      <ul>
+      <% @cocktail_source.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,17 +1,16 @@
 <h1>Listing cocktails</h1>
 
-<table>
+<%= link_to 'New Cocktail', new_cocktail_path %>
+
+<table class="table" id="cocktails_table">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
-      <th>Instructions</th>
+      <th>Ingredient Summary</th>
       <th>Glass</th>
       <th>Source</th>
       <th>Rating</th>
       <th>Priority</th>
-      <th></th>
-      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -19,15 +18,12 @@
   <tbody>
     <% @cocktails.each do |cocktail| %>
       <tr>
-        <td><%= cocktail.name %></td>
-        <td><%= cocktail.description %></td>
-        <td><%= cocktail.instructions %></td>
+        <td><%= link_to cocktail.name, cocktail %></td>
+        <td><%= cocktail.some_ingredients %></td>
         <td><%= cocktail.glass.name %></td>
-        <td><%= cocktail.source %></td>
+        <td><%= cocktail.cocktail_source.name if cocktail.cocktail_source %></td>
         <td><%= cocktail.rating %></td>
         <td><%= cocktail.priority %></td>
-        <td><%= link_to 'Show', cocktail %></td>
-        <td><%= link_to 'Edit', edit_cocktail_path(cocktail) %></td>
         <td><%= link_to 'Destroy', cocktail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -36,4 +32,10 @@
 
 <br>
 
-<%= link_to 'New Cocktail', new_cocktail_path %>
+<script>
+  $(function(){
+    $("#cocktails_table").dataTable({
+      "bPaginate": false
+    })
+  });
+</script>

@@ -1,15 +1,21 @@
 <h1>Listing ingredients</h1>
+*All priority counts include the count of previous priorities
 
-<table>
+<%= link_to 'New Ingredient', new_ingredient_path %>
+<table class="table" id="ingredients_table">
   <thead>
     <tr>
-      <th>Type</th>
       <th>Name</th>
-      <th>Brand</th>
+      <th>Type</th>
+      <th>Family</th>
+      <th>Category</th>
+<!--       <th>Brand</th>
       <th>Make</th>
-      <th>Description</th>
-      <th></th>
-      <th></th>
+      <th>Description</th> -->
+      <th style="padding:10 px">Priority 1</th>
+      <th>Priority 1-2</th>
+      <th>Priority 1-3</th>
+      <th>Priority 1-4</th>
       <th></th>
     </tr>
   </thead>
@@ -17,13 +23,17 @@
   <tbody>
     <% @ingredients.each do |ingredient| %>
       <tr>
-        <td><%= ingredient.ingredient_type.name %></td>
-        <td><%= ingredient.name %></td>
-        <td><%= ingredient.brand %></td>
-        <td><%= ingredient.make %></td>
-        <td><%= ingredient.description %></td>
-        <td><%= link_to 'Show', ingredient %></td>
-        <td><%= link_to 'Edit', edit_ingredient_path(ingredient) %></td>
+        <td><%= link_to ingredient.name, ingredient_path(ingredient.id) %></td>
+        <td><%= link_to ingredient.ingredient_type.name, ingredient_type_path(ingredient.ingredient_type.id) %></td>
+        <td><%= link_to ingredient.ingredient_type.ingredient_family.name, ingredient_family_path(ingredient.ingredient_type.ingredient_family.id) %></td>
+        <td><%= link_to ingredient.ingredient_type.ingredient_family.ingredient_category.name, ingredient_category_path(ingredient.ingredient_type.ingredient_family.ingredient_category.id) %></td>
+<!--         <td><%#= ingredient.brand %></td>
+        <td><%#= ingredient.make %></td>
+        <td><%#= ingredient.description %></td> -->
+        <td><%= ingredient.cocktails.where("priority = 1").count %> </td>
+        <td><%= ingredient.cocktails.where("priority in (1,2)").count %> </td>
+        <td><%= ingredient.cocktails.where("priority in (1,2,3)").count %> </td>
+        <td><%= ingredient.cocktails.count %> </td>
         <td><%= link_to 'Destroy', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -32,4 +42,10 @@
 
 <br>
 
-<%= link_to 'New Ingredient', new_ingredient_path %>
+<script>
+  $(function(){
+    $("#ingredients_table").dataTable({
+      "bPaginate": false
+    })
+  });
+</script>

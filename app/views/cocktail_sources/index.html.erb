@@ -1,0 +1,27 @@
+<h1>Listing cocktail_sources</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cocktail_sources.each do |cocktail_source| %>
+      <tr>
+        <td><%= cocktail_source.name %></td>
+        <td><%= link_to 'Show', cocktail_source %></td>
+        <td><%= link_to 'Edit', edit_cocktail_source_path(cocktail_source) %></td>
+        <td><%= link_to 'Destroy', cocktail_source, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cocktail source', new_cocktail_source_path %>
