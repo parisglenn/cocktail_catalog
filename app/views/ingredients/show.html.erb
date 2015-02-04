@@ -1,53 +1,133 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <h1> <%= @ingredient.name %></h1>
+  <% if @filters.any? %>
+    <h4> Filtered by: </br>
+      --
+      <% @filters.each do |f| %>
+        <%= " #{f.name} -- " if f %> 
+      <% end %>
+    </h4>
+    <%= link_to 'Remove filters', @ingredient %></br></br>
+  <% end %>
   <strong>Type:</strong>
   <%= link_to @ingredient.ingredient_type.name, ingredient_type_path(@ingredient.ingredient_type.id) %>
 </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @ingredient.name %>
-</p>
-
+<% if @ingredient.brand %>
 <p>
   <strong>Brand:</strong>
   <%= @ingredient.brand %>
 </p>
+<% end %>
 
+<% if @ingredient.make %>
 <p>
   <strong>Make:</strong>
   <%= @ingredient.make %>
 </p>
+<% end %>
 
+<% if @ingredient.description %>
 <p>
   <strong>Description:</strong>
   <%= @ingredient.description %>
 </p>
+<% end %>
 
 <%= link_to 'Edit', edit_ingredient_path(@ingredient) %> |
-<%= link_to 'Back', ingredients_path %>
+<%= link_to 'All Ingredients', ingredients_path %>
 
 <div class="row-fluid">
-  <div class="span6">
+  <div class="span3">
     <p>
       <h1>Cocktails:</h1>
         <ul>
-          <% @ingredient.cocktails.each do |cocktail| %>
+          <% @ingredient.filtered_cocktails(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).each do |cocktail| %>
           <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail } %> </li>
           <% end %>
         </ul>
     </p>
   </div>
 
-  <div class="span6">
+  <div class="span3">
     <p>
       <h1> Shared Ingredients:</h1>
         <ul>
-          <% @ingredient.shared_ingredients.each do |i| %>
-            <li> <%= link_to i.show(true), ingredient_path(i.id) %> next allow filter option </li>
+          <% @ingredient.shared_ingredients(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).each do |i| %>
+            <li> 
+              <%= link_to i.show(true), ingredient_path(i.id) %> 
+              <% unless @no_ingredient_filter %>
+                <a onclick="cocktailFilter('ingredient_filter',<%=i.id%>)"> -filter-</a>
+              <% end %>
+            </li>
           <% end %>
         </ul>
     </p>
   </div>
+
+  <div class="span3">
+    <p>
+      <h1> Shared Types:</h1>
+        <ul>
+          <% @ingredient.shared_types(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).each do |i| %>
+            <li> 
+              <%= link_to i.name, ingredient_type_path(i.id) %>
+              <% unless @no_ingredient_type_filter %>
+                <a onclick="cocktailFilter('ingredient_type_filter',<%=i.id%>)"> -filter-</a>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+    </p>
+  </div>
+
+
+  <div class="span3">
+    <p>
+      <h1> Shared Families:</h1>
+        <ul>
+          <% @ingredient.shared_families(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).each do |i| %>
+            <li> 
+              <%= link_to i.name, ingredient_family_path(i.id) %> 
+              <% unless @no_ingredient_family_filter %>
+                <a onclick="cocktailFilter('ingredient_family_filter',<%=i.id%>)"> -filter-</a>
+              <% end %> 
+            </li>
+          <% end %>
+        </ul>
+    </p>
+    <% unless @ingredient.modifications.empty? %>
+      <p>
+        <h1> Modifications:</h1>
+          <ul>
+            <% @ingredient.modifications(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).each do |m| %>
+              <li> 
+                <%= link_to m.name, ingredient_modification_path(m.id) %> 
+                <% unless @no_modification_filter %>
+                  <a onclick="cocktailFilter('modification_filter',<%=m.id%>)"> -filter-</a>
+                <% end %> 
+              </li>
+            <% end %>
+          </ul>
+      </p>
+    <% end %>
+  </div>
+
 </div>
+
+<script>
+  function cocktailFilter(itype, id){
+    var params = window.location.search;
+    var num='_1=';
+    var prepend='?';
+    if (params.indexOf(itype) > -1){
+      num='_2='
+    }
+    if (params.indexOf('?') > -1){
+      prepend='&'
+    }
+    window.location.replace(window.location.href+prepend+itype+num+id)
+  }
+</script>

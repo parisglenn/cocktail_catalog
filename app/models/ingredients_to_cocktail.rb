@@ -18,6 +18,11 @@ class IngredientsToCocktail < ActiveRecord::Base
 				display += " powder "
 				juice = true
 			end
+			if ingredient_modification.id == 44
+				display += " #{ingredient.name}"
+				display += " water "
+				juice = true
+			end
 			if juice == false
 				display += " #{ingredient_modification.name}"
 			end

@@ -21,4 +21,8 @@ class IngredientType < ActiveRecord::Base
 		end
 		cs.values.count
 	end
+
+	def to_s
+		name
+	end
 end

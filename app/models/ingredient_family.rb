@@ -14,4 +14,8 @@ class IngredientFamily < ActiveRecord::Base
 		cs.values.sort { |a,b| a.priority <=> b.priority }
 		#order_by{|v| v.priority }
 	end
+
+	def to_s
+		name
+	end
 end
