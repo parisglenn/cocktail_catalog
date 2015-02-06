@@ -10,6 +10,23 @@ class IngredientModificationsController < ApplicationController
   # GET /ingredient_modifications/1
   # GET /ingredient_modifications/1.json
   def show
+    @ingredient_filter_1 = Ingredient.find params[:ingredient_filter_1] if params[:ingredient_filter_1].present? 
+    if params[:ingredient_filter_2].present?
+      @ingredient_filter_2 = Ingredient.find params[:ingredient_filter_2]
+      @no_ingredient_filter = true
+    end
+    @ingredient_type_filter_1 = IngredientType.find params[:ingredient_type_filter_1] if params[:ingredient_type_filter_1].present?
+    if params[:ingredient_type_filter_2].present?
+      @ingredient_type_filter_2 = IngredientType.find params[:ingredient_type_filter_2] 
+      @no_ingredient_type_filter = true
+    end
+    @ingredient_family_filter_1 = IngredientFamily.find params[:ingredient_family_filter_1] if params[:ingredient_family_filter_1].present?
+    if params[:ingredient_family_filter_2].present?
+      @ingredient_family_filter_2 = IngredientFamily.find params[:ingredient_family_filter_2] 
+      @no_ingredient_family_filter = true
+    end
+    @filters = [@ingredient_filter_1, @ingredient_filter_2, @ingredient_type_filter_1,
+      @ingredient_type_filter_2, @ingredient_family_filter_1, @ingredient_family_filter_2]
   end
 
   # GET /ingredient_modifications/new

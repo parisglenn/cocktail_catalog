@@ -10,6 +10,16 @@
   <%= link_to @ingredient_type.ingredient_family.name, ingredient_family_path(@ingredient_type.ingredient_family.id) %>
 </p>
 
+  <% if @filters.any? %>
+    <h4> Filtered by: </br>
+      --
+      <% @filters.each do |f| %>
+        <%= " #{f.name} -- " if f %> 
+      <% end %>
+    </h4>
+    <%= link_to 'Remove filters', @ingredient %></br></br>
+  <% end %>
+
 <%= link_to 'Edit', edit_ingredient_type_path(@ingredient_type) %> |
 <%= link_to 'All', ingredient_types_path %> | 
 <%= link_to 'New', new_ingredient_type_path %>
@@ -20,7 +30,9 @@
     <p>
       <h1>Cocktails:</h1>
         <ul>
-          <% @ingredient_type.ingredients.map{|i| i.cocktails}.flatten.uniq.each do |cocktail| %>
+          <% @ingredient_type.filtered_cocktails(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).
+          #ingredients.map{|i| i.cocktails}.flatten.uniq.
+          each do |cocktail| %>
           <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail } %> </li>
           <% end %>
         </ul>
@@ -31,7 +43,7 @@
     <p>
       <h1>Child Ingredients:</h1>
         <ul>
-          <% @ingredient_type.ingredients.sort_by{ |i| -i.cocktails.count }.each do |ingredient| %>
+          <% @ingredient_type.filtered_child_ingredients(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).sort_by{ |i| -i.cocktails.count }.each do |ingredient| %>
           <li> <%= link_to ingredient.name, ingredient_path(ingredient.id) %> (in <%= ingredient.cocktails.count %> cocktails)</li>
           <% end %>
         </ul>
@@ -42,8 +54,14 @@
     <p>
       <h1> Shared Ingredients:</h1>
         <ul>
-          <% @ingredient_type.ingredients.map{|i| i.shared_ingredients}.flatten.uniq.reject{|si| si.ingredient_type.id == @ingredient_type.id}.sort_by{|i| -i.cocktails.count }.each do |i| %>
-	            <li> <%= link_to i.show(true), ingredient_path(i.id) %> next allow filter option </li>
+          <% @ingredient_type.ingredients.map{|i| i.shared_ingredients(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1)}.flatten.uniq.reject{|si| si.ingredient_type.id == @ingredient_type.id}.sort_by{|i| -i.cocktails.count }.each do |i| %>
+	            <li> 
+                <%= link_to i.show(true), ingredient_path(i.id) %> 
+                <% unless @no_ingredient_filter %>
+                  <a onclick="cocktailFilter('ingredient_filter',<%=i.id%>)"> -filter-</a>
+                <% end %>
+
+              </li>
           <% end %>
         </ul>
     </p>

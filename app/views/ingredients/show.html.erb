@@ -98,7 +98,7 @@
           <% end %>
         </ul>
     </p>
-    <% unless @ingredient.modifications.empty? %>
+    <% unless @ingredient.modifications(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).empty? %>
       <p>
         <h1> Modifications:</h1>
           <ul>

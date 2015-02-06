@@ -6,7 +6,7 @@ class IngredientsController < ApplicationController
   # GET /ingredients.json
   def index
     #the joins make it go much slower - could still create custom objects in in memomy db pull
-    @ingredients = Ingredient.all#.joins(:ingredients_to_cocktails).joins(:cocktails)
+    @ingredients = Ingredient.all.includes(:cocktails).joins(:cocktails)#.joins(:ingredients_to_cocktails).joins(:cocktails)
   end
 
   # GET /ingredients/1

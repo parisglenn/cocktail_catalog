@@ -23,7 +23,7 @@ class Ingredient < ActiveRecord::Base
 				end
 			end
 		end
-		mods 
+		mods.uniq 
 	end
 
 	def filtered_cocktails(ingredient_filter_1=nil, ingredient_filter_2=nil, ingredient_type_filter_1=nil, ingredient_type_filter_2=nil, ingredient_family_filter_1=nil, ingredient_family_filter_2=nil, modification_filter_1=nil)
@@ -101,7 +101,7 @@ class Ingredient < ActiveRecord::Base
 				end
 			elsif iff1_cocktails.first 
 				filtered = true
-				itf1_cocktails.each do |c|
+				iff1_cocktails.each do |c|
 					all_filter_result.each do |fr|
 						unless fr.include? c
 							filtered = false

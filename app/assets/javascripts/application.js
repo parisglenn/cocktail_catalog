@@ -28,3 +28,16 @@ $(function(){
 	$(".chosen-select").chosen()
 	$(".chosen-select").trigger("chosen:updated");
 });
+
+  function cocktailFilter(itype, id){
+    var params = window.location.search;
+    var num='_1=';
+    var prepend='?';
+    if (params.indexOf(itype) > -1){
+      num='_2='
+    }
+    if (params.indexOf('?') > -1){
+      prepend='&'
+    }
+    window.location.replace(window.location.href+prepend+itype+num+id)
+  }

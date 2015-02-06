@@ -1,9 +1,69 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @ingredient_modification.name %>
-</p>
+<h1>Modification:  <%= @ingredient_modification.name %> </h1>
+<%= link_to 'Remove Filters', @ingredient_modification %>
+
+<div class="row-fluid">
+  <div class="span3">
+    <p>
+      <h1>Cocktails:</h1>
+        <ul>
+          <% @ingredient_modification.filtered_cocktails(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).each do |cocktail| %>
+          <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail } %> </li>
+          <% end %>
+        </ul>
+    </p>
+  </div>
+
+  <div class="span3">
+    <p>
+      <h1> Ingredients:</h1>
+        <ul>
+          <% @ingredient_modification.ingredients(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).each do |i| %>
+            <li> 
+              <%= link_to i.show(true), ingredient_path(i.id) %> 
+              <% unless @no_ingredient_filter %>
+                <a onclick="cocktailFilter('ingredient_filter',<%=i.id%>)"> -filter-</a>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+    </p>
+  </div>
+
+  <div class="span3">
+    <p>
+      <h1> Types:</h1>
+        <ul>
+          <% @ingredient_modification.types(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).each do |i| %>
+            <li> 
+              <%= link_to i.name, ingredient_type_path(i.id) %>
+              <% unless @no_ingredient_type_filter %>
+                <a onclick="cocktailFilter('ingredient_type_filter',<%=i.id%>)"> -filter-</a>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+    </p>
+  </div>
+
+  <div class="span3">
+    <p>
+      <h1> Families:</h1>
+        <ul>
+          <% @ingredient_modification.families(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).each do |i| %>
+            <li> 
+              <%= link_to i.name, ingredient_family_path(i.id) %> 
+              <% unless @no_ingredient_family_filter %>
+                <a onclick="cocktailFilter('ingredient_family_filter',<%=i.id%>)"> -filter-</a>
+              <% end %> 
+            </li>
+          <% end %>
+        </ul>
+    </p>
+  </div>
+
+</div>
 
 <%= link_to 'Edit', edit_ingredient_modification_path(@ingredient_modification) %> |
 <%= link_to 'Back', ingredient_modifications_path %>
