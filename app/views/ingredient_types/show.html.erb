@@ -26,13 +26,12 @@
 
 
 <div class="row-fluid">
+
   <div class="span3">
     <p>
       <h1>Cocktails:</h1>
         <ul>
-          <% @ingredient_type.filtered_cocktails(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).
-          #ingredients.map{|i| i.cocktails}.flatten.uniq.
-          each do |cocktail| %>
+          <% @filtered_cocktails.each do |cocktail| %>
           <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail } %> </li>
           <% end %>
         </ul>
@@ -43,27 +42,26 @@
     <p>
       <h1>Child Ingredients:</h1>
         <ul>
-          <% @ingredient_type.filtered_child_ingredients(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1).sort_by{ |i| -i.cocktails.count }.each do |ingredient| %>
+          <% @ingredient_type.ingredients.sort_by{ |i| -i.cocktails.count }.each do |ingredient| %>
           <li> <%= link_to ingredient.name, ingredient_path(ingredient.id) %> (in <%= ingredient.cocktails.count %> cocktails)</li>
           <% end %>
         </ul>
     </p>
+
+    <%= render partial: 'ingredient_types/types_list', locals: {filtered_ingredient_types: @filtered_ingredient_types, no_ingredient_type_filter: @no_ingredient_type_filter} %>
+
+  </div> 
+
+  <div class="span3">
+    <%= render partial: 'ingredients/ingredient_list', locals: {filtered_shared_ingredients: @filtered_shared_ingredients, no_ingredient_filter: @no_ingredient_filter} %>
   </div>
 
   <div class="span3">
-    <p>
-      <h1> Shared Ingredients:</h1>
-        <ul>
-          <% @ingredient_type.ingredients.map{|i| i.shared_ingredients(@ingredient_filter_1,@ingredient_filter_2,@ingredient_type_filter_1,@ingredient_type_filter_2,@ingredient_family_filter_1,@ingredient_family_filter_2,@modification_filter_1)}.flatten.uniq.reject{|si| si.ingredient_type.id == @ingredient_type.id}.sort_by{|i| -i.cocktails.count }.each do |i| %>
-	            <li> 
-                <%= link_to i.show(true), ingredient_path(i.id) %> 
-                <% unless @no_ingredient_filter %>
-                  <a onclick="cocktailFilter('ingredient_filter',<%=i.id%>)"> -filter-</a>
-                <% end %>
+    <%= render partial: 'ingredient_families/families_list', locals: {filtered_ingredient_families: @filtered_ingredient_families, no_ingredient_family_filter: @no_ingredient_family_filter} %>
 
-              </li>
-          <% end %>
-        </ul>
-    </p>
+    <% unless @filtered_modifications.empty? %>
+      <%= render partial: 'ingredient_modifications/modifications_list', locals: {filtered_modifications: @filtered_modifications, no_modification_filter: @no_modification_filter} %>
+    <% end %>
   </div>
+
 </div>

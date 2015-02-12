@@ -3,6 +3,8 @@
   <% @ingredients_dropdown.each do |name, id| %>
     <% if not @new_ingredient and i.ingredient_id == id %>
       <option value='<%=id%>' selected><%=name%></option>
+    <% elsif @ingredient and @ingredient.id == id %>
+      <option value='<%=id%>' selected><%=name%></option>
     <% else %>
       <option value='<%=id%>'><%=name%></option>
     <% end %>

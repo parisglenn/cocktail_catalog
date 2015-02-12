@@ -6,6 +6,10 @@ class Ingredient < ActiveRecord::Base
 	belongs_to :ingredient_type
 	acts_as_commentable
 
+	def self.filtered_shared_ingredients cocktails
+		cocktails.map { |c| c.ingredients }.flatten.uniq 
+	end
+	
 	def shared_ingredients(ingredient_filter_1=nil, ingredient_filter_2=nil, ingredient_type_filter_1=nil, ingredient_type_filter_2=nil, ingredient_family_filter_1=nil, ingredient_family_filter_2=nil, modification_filter_1=nil)
 		buddies = []
 		filtered_cocktails(ingredient_filter_1, ingredient_filter_2, ingredient_type_filter_1, ingredient_type_filter_2, ingredient_family_filter_1, ingredient_family_filter_2, modification_filter_1).each do |c|

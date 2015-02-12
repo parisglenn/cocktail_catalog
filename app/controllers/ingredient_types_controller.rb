@@ -1,4 +1,5 @@
 class IngredientTypesController < ApplicationController
+  include CocktailsHelper
   before_action :set_ingredient_type, only: [:show, :edit, :update, :destroy]
   before_action :set_ingredient_families, only: [:new, :edit]
 
@@ -11,27 +12,14 @@ class IngredientTypesController < ApplicationController
   # GET /ingredient_types/1
   # GET /ingredient_types/1.json
   def show
-    @ingredient_filter_1 = Ingredient.find params[:ingredient_filter_1] if params[:ingredient_filter_1].present? 
-    if params[:ingredient_filter_2].present?
-      @ingredient_filter_2 = Ingredient.find params[:ingredient_filter_2]
-      @no_ingredient_filter = true
-    end
-    @ingredient_type_filter_1 = IngredientType.find params[:ingredient_type_filter_1] if params[:ingredient_type_filter_1].present?
-    if params[:ingredient_type_filter_2].present?
-      @ingredient_type_filter_2 = IngredientType.find params[:ingredient_type_filter_2] 
-      @no_ingredient_type_filter = true
-    end
-    @ingredient_family_filter_1 = IngredientFamily.find params[:ingredient_family_filter_1] if params[:ingredient_family_filter_1].present?
-    if params[:ingredient_family_filter_2].present?
-      @ingredient_family_filter_2 = IngredientFamily.find params[:ingredient_family_filter_2] 
-      @no_ingredient_family_filter = true
-    end
-    if params[:modification_filter_1].present?
-      @modification_filter_1 = IngredientModification.find params[:modification_filter_1]
-      @no_modification_filter = true
-    end
-    @filters = [@ingredient_filter_1, @ingredient_filter_2, @ingredient_type_filter_1,
-      @ingredient_type_filter_2, @ingredient_family_filter_1, @ingredient_family_filter_2, @modification_filter_1]
+    build_filter_hash params
+    @filters = @filter_hash.values 
+    @filtered_cocktails = filtered_cocktails(@ingredient_type, @filter_hash)
+    @filtered_shared_ingredients = Ingredient.filtered_shared_ingredients(@filtered_cocktails)
+    @filtered_ingredient_types = IngredientType.filtered_ingredient_types(@filtered_cocktails)
+    @filtered_ingredient_families = IngredientFamily.filtered_ingredient_families(@filtered_cocktails)
+    @filtered_modifications = IngredientModification.filtered_modifications(@filtered_cocktails)
+ 
   end
 
   # GET /ingredient_types/new

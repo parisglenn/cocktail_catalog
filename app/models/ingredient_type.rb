@@ -2,6 +2,21 @@ class IngredientType < ActiveRecord::Base
 	has_many :ingredients
 	belongs_to :ingredient_family
 
+	def self.filtered_ingredient_types cocktails
+		Ingredient.filtered_shared_ingredients(cocktails).map{ |i|
+			i.ingredient_type
+		}.uniq
+		# types = []
+		# cocktails.each do |c|
+		# 	c.ingredients.each do |i|
+		# 		types << i.ingredient_type
+		# 	end
+		# end
+		# types.flatten.uniq
+		
+		#Cocktail.filtered_shared_ingredients(cocktails).map{ |i| i.ingredient_type }.uniq
+	end
+	
 	def filtered_ingredients(ingredient_filter_1=nil, ingredient_filter_2=nil, ingredient_type_filter_1=nil, ingredient_type_filter_2=nil, ingredient_family_filter_1=nil, ingredient_family_filter_2=nil, modification_filter_1=nil)
 		#currently unused in the show view
 		if [ingredient_filter_1, ingredient_filter_2, ingredient_type_filter_1, ingredient_type_filter_2, ingredient_family_filter_1, ingredient_family_filter_2, modification_filter_1].none?
@@ -37,7 +52,7 @@ class IngredientType < ActiveRecord::Base
 
 	def filtered_cocktails(ingredient_filter_1=nil, ingredient_filter_2=nil, ingredient_type_filter_1=nil, ingredient_type_filter_2=nil, ingredient_family_filter_1=nil, ingredient_family_filter_2=nil, modification_filter_1=nil)
 		if [ingredient_filter_1, ingredient_filter_2, ingredient_type_filter_1, ingredient_type_filter_2, ingredient_family_filter_1, ingredient_family_filter_2, modification_filter_1].none?
-			return ingredients
+			return cocktails
 		else
 			qualifying_cocktails = []
 			all_filter_result = []

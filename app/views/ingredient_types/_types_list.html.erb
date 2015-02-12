@@ -1,0 +1,13 @@
+<p>
+  <h1> Shared Types:</h1>
+    <ul>
+      <% filtered_ingredient_types.each do |i| %>
+        <li>  
+          <%= link_to i.name, ingredient_type_path(i.id) %> 
+          <% unless no_ingredient_type_filter %>
+            <a onclick="cocktailFilter('ingredient_type_filter',<%=i.id%>)"> -filter-</a>
+          <% end %> 
+        </li>
+      <% end %>
+    </ul>
+</p>

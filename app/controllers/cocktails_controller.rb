@@ -5,7 +5,7 @@ class CocktailsController < ApplicationController
   # GET /cocktails
   # GET /cocktails.json
   def index
-    @cocktails = Cocktail.all.order("priority asc, rating desc")
+    @cocktails = Cocktail.all#.order("priority asc, rating desc")
   end
 
   # GET /cocktails/1
@@ -87,7 +87,7 @@ class CocktailsController < ApplicationController
       @source_dropdown = CocktailSource.all.map { |c| [c.name, c.id] }
       @rating_dropdown = [nil] + (1..10).map { |n| [n, n] }
       @priority_dropdown =  [nil] + (1..4).map { |n| [n, n] }
-      @ingredients_dropdown = Ingredient.all.map { |i| [i.name, i.id] }
+      @ingredients_dropdown = Ingredient.all.map { |i| ["#{i.name} (#{i.ingredient_type.name})", i.id] }
       @modifications_dropdown = IngredientModification.all.map { |i| [i.name, i.id] }
     end
 

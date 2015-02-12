@@ -1,0 +1,13 @@
+<p>
+  <h1> Modifications:</h1>
+    <ul>
+      <% filtered_modifications.each do |m| %>
+        <li> 
+          <%= link_to m.name, ingredient_modification_path(m.id) %> 
+          <% unless no_modification_filter %>
+            <a onclick="cocktailFilter('modification_filter',<%=m.id%>)"> -filter-</a>
+          <% end %> 
+        </li>
+      <% end %>
+    </ul>
+</p>
