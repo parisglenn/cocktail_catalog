@@ -23,13 +23,12 @@ module CocktailsHelper
 	    end
 	end
 
+
 	def filtered_cocktails(obj, filter_hash={})
 		if filter_hash.values.none?
 			return obj.cocktails
 		else
-		# if [ingredient_filter_1, ingredient_filter_2, ingredient_type_filter_1, ingredient_type_filter_2, ingredient_family_filter_1, ingredient_family_filter_2, modification_filter_1].none?
-		# 	return cocktails
-		# else
+			#clean up how these lists are created
 			qualifying_cocktails = []
 			all_filter_result = []
 			if1_cocktails = []
@@ -73,60 +72,18 @@ module CocktailsHelper
 			all_filter_result << iff1_cocktails unless iff1_cocktails.empty?
 			all_filter_result << iff2_cocktails unless iff2_cocktails.empty?
 			all_filter_result << mod_cocktails unless mod_cocktails.empty?
-			if if1_cocktails.first 
+			all_filter_result.first.each do |c|
 				filtered = true
-				if1_cocktails.each do |c|
-					all_filter_result.each do |fr|
-						unless fr.include? c
-							filtered = false
-							break
-						end
-					end
-					if filtered == true
-						qualifying_cocktails << c
+				all_filter_result.each do |fr|
+					unless fr.include? c
+						filtered = false
+						break
 					end
 				end
-			elsif itf1_cocktails.first
-				filtered = true
-				itf1_cocktails.each do |c|
-					all_filter_result.each do |fr|
-						unless fr.include? c
-							filtered = false
-							break
-						end
-					end
-					if filtered == true
-						qualifying_cocktails << c
-					end
+				if filtered == true
+					qualifying_cocktails << c
 				end
-			elsif iff1_cocktails.first 
-				filtered = true
-				iff1_cocktails.each do |c|
-					all_filter_result.each do |fr|
-						unless fr.include? c
-							filtered = false
-							break
-						end
-					end
-					if filtered == true
-						qualifying_cocktails << c
-					end
-				end
-			elsif mod_cocktails.first
-				filtered = true
-				mod_cocktails.each do |c|
-					all_filter_result.each do |fr|
-						unless fr.include? c
-							filtered = false
-							break
-						end
-					end
-					if filtered == true
-						qualifying_cocktails << c
-					end
-				end		
 			end
-			# for some reason filtering by modification is leading to duplicate cocktails
 			return qualifying_cocktails.uniq
 		end
 	end

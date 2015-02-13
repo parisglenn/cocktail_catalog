@@ -1,9 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h1>
   <%= @ingredient_family.name %>
-</p>
+</h1>
 
 <p>
   <strong>Category:</strong>
@@ -13,20 +12,29 @@
 <%= link_to 'Edit', edit_ingredient_family_path(@ingredient_family) %> |
 <%= link_to 'Back', ingredient_families_path %>
 
+  <% if @filters.any? %>
+    <h4> Filtered by: </br>
+      --
+      <% @filters.each do |f| %>
+        <%= " #{f.name} -- " if f %> 
+      <% end %>
+    </h4>
+    <%= link_to 'Remove filters', @ingredient %></br></br>
+  <% end %>
 
 <div class="row-fluid">
-  <div class="span4">
+  <div class="span3">
     <p>
       <h1>Cocktails:</h1>
         <ul>
-          <% @ingredient_family.cocktails.each do |cocktail| %>
+          <% @filtered_cocktails.each do |cocktail| %>
           <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail } %> </li>
           <% end %>
         </ul>
     </p>
   </div>
 
-  <div class="span4">
+  <div class="span3">
     <p>
       <h1>Child Ingredients Types:</h1>
         <ul>
@@ -35,18 +43,45 @@
           <% end %>
         </ul>
     </p>
-  </div>
-
-  <div class="span4">
     <p>
-      <h1> Shared Ingredients:</h1>
+      <h1> Child Ingredients:</h1>
         <ul>
-          <% @ingredient_family.ingredient_types.map{|it| it.ingredients}.flatten.uniq.map{|i| i.shared_ingredients}.flatten.uniq.
-          			reject{|si| si.ingredient_type.ingredient_family.id == @ingredient_family.id}.
-          			sort_by{|i| -i.cocktails.count }.each do |i| %>
-	            <li> <%= link_to i.show(true), ingredient_path(i.id) %> next allow filter option </li>
+          <% @ingredient_family.ingredients.each do |i| %>
+              <li> <%= link_to i.show(true), ingredient_path(i.id) %> </li>
           <% end %>
         </ul>
     </p>
   </div>
+
+  <div class="span3">
+    <%= render partial: 'ingredient_types/types_list', locals: {filtered_ingredient_types: @filtered_ingredient_types, no_ingredient_type_filter: @no_ingredient_type_filter} %>
+  </div>
+
+<!--   <div class="span3">
+
+    <p>
+      <h1> Shared Ingredient Types:</h1>
+        <ul>
+          <% @filtered_ingredient_types.each do |i| %>
+              <li> <%= link_to i.name, ingredient_type_path(i.id) %> next allow filter option </li>
+          <% end %>
+        </ul>
+    </p>
+  </div> -->
+
+  <div class="span3">
+    <%= render partial: 'ingredients/ingredient_list', locals: {filtered_shared_ingredients: @filtered_shared_ingredients, no_ingredient_filter: @no_ingredient_filter} %>
+  </div>
+
+<!--   <div class="span3">
+
+    <p>
+      <h1> Shared Ingredients:</h1>
+        <ul>
+          <% @filtered_shared_ingredients.each do |i| %>
+	            <li> <%= link_to i.show(true), ingredient_path(i.id) %> next allow filter option </li>
+          <% end %>
+        </ul>
+    </p>
+  </div> -->
 </div>

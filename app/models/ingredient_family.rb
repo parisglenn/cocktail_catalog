@@ -8,6 +8,14 @@ class IngredientFamily < ActiveRecord::Base
 		}.uniq
 		#Cocktail.filtered_ingredient_types(cocktails).map{ |i| i.ingredient_type }.uniq
 	end
+
+	def ingredients
+		ins = []
+		ingredient_types.each do |it|
+			ins << it.ingredients
+		end
+		ins.flatten.uniq
+	end
 	
 	def cocktails
 		cs = {}
