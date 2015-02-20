@@ -17,7 +17,7 @@
 
   <div class="span3">
     <p>
-      <h1>Cocktails:</h1>
+      <h1>Cocktails: (<%= @filtered_cocktails.count %>)</h1>
         <ul>
           <% @filtered_cocktails.each do |cocktail| %>
           <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail } %> </li>

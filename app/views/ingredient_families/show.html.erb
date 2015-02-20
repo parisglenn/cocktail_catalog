@@ -25,7 +25,7 @@
 <div class="row-fluid">
   <div class="span3">
     <p>
-      <h1>Cocktails:</h1>
+      <h1>Cocktails: (<%= @filtered_cocktails.count %>)</h1>
         <ul>
           <% @filtered_cocktails.each do |cocktail| %>
           <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail } %> </li>
@@ -37,7 +37,7 @@
   <div class="span3">
 
     <p>
-      <h1>Child Ingredients Types:</h1>
+      <h1>Child Ingredients Types: (<%= @ingredient_family.ingredient_types.count %>)</h1>
         <ul>
           <% @ingredient_family.ingredient_types.sort_by{ |i| -i.cocktails_count }.each do |ingredient_type| %>
           <li> <%= link_to ingredient_type.name, ingredient_type_path(ingredient_type.id) %>  (has <%= ingredient_type.ingredients.count %> ingredients in <%= ingredient_type.cocktails_count %> cocktails)</li>
@@ -45,7 +45,7 @@
         </ul>
     </p>
     <p>
-      <h1> Child Ingredients:</h1>
+      <h1> Child Ingredients: (<%= @ingredient_family.ingredients.count %>)</h1>
         <ul>
           <% @ingredient_family.ingredients.each do |i| %>
               <li> <%= link_to i.show(true), ingredient_path(i.id) %> </li>
