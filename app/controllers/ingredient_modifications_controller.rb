@@ -14,9 +14,9 @@ class IngredientModificationsController < ApplicationController
     build_filter_hash params
     @filters = @filter_hash.values 
     @filtered_cocktails = filtered_cocktails(@ingredient_modification, @filter_hash)
-    @filtered_shared_ingredients = Ingredient.filtered_shared_ingredients(@filtered_cocktails)
-    @filtered_ingredient_types = IngredientType.filtered_ingredient_types(@filtered_cocktails)
-    @filtered_ingredient_families = IngredientFamily.filtered_ingredient_families(@filtered_cocktails)
+    @filtered_shared_ingredients = Ingredient.new.filtered_shared_ingredients(@filtered_cocktails)
+    @filtered_ingredient_types = IngredientType.new.filtered_ingredient_types(@filtered_cocktails)
+    @filtered_ingredient_families = IngredientFamily.new.filtered_ingredient_families(@filtered_cocktails)
     @filtered_modifications = IngredientModification.filtered_modifications(@filtered_cocktails).reject { |i| i == @ingredient_modification}
  
   end

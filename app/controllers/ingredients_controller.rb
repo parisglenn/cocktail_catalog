@@ -6,9 +6,7 @@ class IngredientsController < ApplicationController
   # GET /ingredients
   # GET /ingredients.json
   def index
-    #the joins make it go much slower - could still create custom objects in in memomy db pull
-    @ingredients = Ingredient.all.includes(:cocktails).uniq
-    #joins(:cocktails).uniq#.joins(:ingredients_to_cocktails).joins(:cocktails)
+    @ingredients = Ingredient.all_with_cocktail_priorities
   end
 
   # GET /ingredients/1
@@ -17,9 +15,9 @@ class IngredientsController < ApplicationController
     build_filter_hash params
     @filters = @filter_hash.values 
     @filtered_cocktails = filtered_cocktails(@ingredient, @filter_hash)
-    @filtered_shared_ingredients = Ingredient.filtered_shared_ingredients(@filtered_cocktails)
-    @filtered_ingredient_types = IngredientType.filtered_ingredient_types(@filtered_cocktails)
-    @filtered_ingredient_families = IngredientFamily.filtered_ingredient_families(@filtered_cocktails)
+    @filtered_shared_ingredients = @ingredient.filtered_shared_ingredients(@filtered_cocktails)
+    @filtered_ingredient_types = @ingredient.ingredient_type.filtered_ingredient_types(@filtered_cocktails)
+    @filtered_ingredient_families = @ingredient.ingredient_type.ingredient_family.filtered_ingredient_families(@filtered_cocktails)
     @filtered_modifications = IngredientModification.filtered_modifications(@filtered_cocktails)
   end
 

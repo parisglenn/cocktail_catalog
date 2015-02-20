@@ -35,6 +35,7 @@
   </div>
 
   <div class="span3">
+
     <p>
       <h1>Child Ingredients Types:</h1>
         <ul>
@@ -54,34 +55,17 @@
   </div>
 
   <div class="span3">
+
+    <% unless @filtered_modifications.empty? %>
+      <%= render partial: 'ingredient_modifications/modifications_list', locals: {filtered_modifications: @filtered_modifications, no_modification_filter: @no_modification_filter} %>
+    <% end %>
+    
     <%= render partial: 'ingredient_types/types_list', locals: {filtered_ingredient_types: @filtered_ingredient_types, no_ingredient_type_filter: @no_ingredient_type_filter} %>
   </div>
 
-<!--   <div class="span3">
-
-    <p>
-      <h1> Shared Ingredient Types:</h1>
-        <ul>
-          <% @filtered_ingredient_types.each do |i| %>
-              <li> <%= link_to i.name, ingredient_type_path(i.id) %> next allow filter option </li>
-          <% end %>
-        </ul>
-    </p>
-  </div> -->
 
   <div class="span3">
     <%= render partial: 'ingredients/ingredient_list', locals: {filtered_shared_ingredients: @filtered_shared_ingredients, no_ingredient_filter: @no_ingredient_filter} %>
   </div>
 
-<!--   <div class="span3">
-
-    <p>
-      <h1> Shared Ingredients:</h1>
-        <ul>
-          <% @filtered_shared_ingredients.each do |i| %>
-	            <li> <%= link_to i.show(true), ingredient_path(i.id) %> next allow filter option </li>
-          <% end %>
-        </ul>
-    </p>
-  </div> -->
 </div>

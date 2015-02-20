@@ -1,52 +1,57 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @cocktail.name %>
-</p>
+<div class="container">
+  <div class="row-fluid">
+    <div class="span6">
+      <h1>
+        <%= @cocktail.name %>
+      </h1>
 
-<% if @cocktail.description.present? %>
-  <p>
-    <strong>Description:</strong>
-    <%= @cocktail.description %>
-  </p>
-<% end %>
+      <% if @cocktail.description.present? %>
+        <p>
+          <strong>Description:</strong></br>
+          <blockquote><%= @cocktail.description %></blockquote>
+        </p>
+      <% end %>
 
-<p>
-  <strong>Ingredients:</strong>
-  <ul>
-  <% @cocktail.ingredients_to_cocktails.each do |i| %>
-    <li><%= link_to i.show, ingredient_path(i.ingredient_id) %></li> 
-  <% end %>
-</ul>
-</p>
+      <p>
+        <strong>Ingredients:</strong>
+        <ul>
+        <% @cocktail.ingredients_to_cocktails.each do |i| %>
+          <li><%= link_to i.show, ingredient_path(i.ingredient_id) %></li> 
+        <% end %>
+      </ul>
+      </p>
 
-<p>
-  <strong>Instructions:</strong>
-  <%= @cocktail.instructions %>
-</p>
+      <p>
+        <strong>Instructions:</strong></br>
+        <blockquote><%= @cocktail.instructions %></blockquote>
+      </p>
 
-<p>
-  <strong>Glass:</strong>
-  <%= @cocktail.glass.name %>
-</p>
+      <p>
+        <strong>Glass:</strong>
+        <%= @cocktail.glass.name %>
+      </p>
 
-<p>
-  <strong>Source:</strong>
-  <%= @cocktail.cocktail_source.name if @cocktail.cocktail_source %>
-</p>
+      <p>
+        <strong>Source:</strong>
+        <%= @cocktail.cocktail_source.name if @cocktail.cocktail_source %>
+      </p>
 
-<p>
-  <strong>Rating:</strong>
-  <%= @cocktail.rating %>
-</p>
+      <p>
+        <strong>Rating:</strong>
+        <%= @cocktail.rating %>
+      </p>
 
-<p>
-  <strong>Priority:</strong>
-  <%= @cocktail.priority %>
-</p>
+      <p>
+        <strong>Priority:</strong>
+        <%= @cocktail.priority %>
+      </p>
 
 
-<%= link_to 'Edit', edit_cocktail_path(@cocktail) %> |
-<%= link_to 'All', cocktails_path %> | 
-<%= link_to 'New', new_cocktail_path %>
+      <%= link_to 'Edit', edit_cocktail_path(@cocktail) %> |
+      <%= link_to 'All', cocktails_path %> | 
+      <%= link_to 'New', new_cocktail_path %>
+    </div>
+  </div>
+</div>

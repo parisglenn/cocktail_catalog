@@ -2,11 +2,10 @@ class IngredientFamily < ActiveRecord::Base
 	has_many :ingredient_types
 	belongs_to :ingredient_category
 
-	def self.filtered_ingredient_families cocktails
-		IngredientType.filtered_ingredient_types(cocktails).map{ |i|
+	def filtered_ingredient_families cocktails
+		IngredientType.new.filtered_ingredient_types(cocktails).map{ |i|
 			i.ingredient_family
-		}.uniq
-		#Cocktail.filtered_ingredient_types(cocktails).map{ |i| i.ingredient_type }.uniq
+		}.uniq.reject { |b| b.id == self.id }
 	end
 
 	def ingredients
@@ -27,7 +26,6 @@ class IngredientFamily < ActiveRecord::Base
 			end
 		end
 		cs.values.sort { |a,b| a.priority <=> b.priority }
-		#order_by{|v| v.priority }
 	end
 
 	def to_s

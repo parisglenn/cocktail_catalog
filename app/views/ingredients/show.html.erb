@@ -15,21 +15,21 @@
   <%= link_to @ingredient.ingredient_type.name, ingredient_type_path(@ingredient.ingredient_type.id) %>
 </p>
 
-<% if @ingredient.brand %>
+<% if @ingredient.brand.present? %>
 <p>
   <strong>Brand:</strong>
   <%= @ingredient.brand %>
 </p>
 <% end %>
 
-<% if @ingredient.make %>
+<% if @ingredient.make.present? %>
 <p>
   <strong>Make:</strong>
   <%= @ingredient.make %>
 </p>
 <% end %>
 
-<% if @ingredient.description %>
+<% if @ingredient.description.present? %>
 <p>
   <strong>Description:</strong>
   <%= @ingredient.description %>
