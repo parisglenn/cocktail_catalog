@@ -1,0 +1,31 @@
+      <% if @shared_ingredient_heirarchy %>
+      <h3> Shared (<%=@shared_ingredient_heirarchy.count%>)</h3>
+      <ul> <!-- open category children -->
+        <li> <%= link_to @shared_ingredient_heirarchy[0].family_name, ingredient_family_path(@shared_ingredient_heirarchy[0].family_id) %> </li>
+          <ul> <!-- open family children -->
+            <li> <%= link_to @shared_ingredient_heirarchy[0].type_name, ingredient_type_path(@shared_ingredient_heirarchy[0].type_id) %> </li>
+              <ul> <!-- open type children -->
+                <li> <%= link_to @shared_ingredient_heirarchy[0].ingredient_name, ingredient_path(@shared_ingredient_heirarchy[0].ingredient_id) %> </li>
+
+                <% @shared_ingredient_heirarchy[1..-1].each_with_index do |si, i| %>
+                  <% if @shared_ingredient_heirarchy[i].type_id == @shared_ingredient_heirarchy[1..-1][i].type_id %>
+                    <li> <%= link_to @shared_ingredient_heirarchy[1..-1][i].ingredient_name, ingredient_path(@shared_ingredient_heirarchy[1..-1][i].ingredient_id) %></li>
+                  <% elsif @shared_ingredient_heirarchy[i].family_id == @shared_ingredient_heirarchy[1..-1][i].family_id %>
+                   </ul><!-- close type children -->
+                    <li> <%= link_to @shared_ingredient_heirarchy[1..-1][i].type_name, ingredient_type_path(@shared_ingredient_heirarchy[1..-1][i].type_id) %></li>
+                    <ul><!-- open type children -->
+                      <li> <%= link_to @shared_ingredient_heirarchy[1..-1][i].ingredient_name, ingredient_path(@shared_ingredient_heirarchy[1..-1][i].ingredient_id) %></li>
+                  <% else %>
+                    </ul><!-- close type children -->
+                  </ul><!-- close family children -->
+                  <li> <%= link_to @shared_ingredient_heirarchy[1..-1][i].family_name, ingredient_family_path(@shared_ingredient_heirarchy[1..-1][i].family_id) %> </li>
+                  <ul> <!-- open family children -->
+                  <li> <%= link_to @shared_ingredient_heirarchy[1..-1][i].type_name, ingredient_type_path(@shared_ingredient_heirarchy[1..-1][i].type_id) %></li>
+                    <ul><!-- open type children -->
+                     <li> <%= link_to @shared_ingredient_heirarchy[1..-1][i].ingredient_name, ingredient_path(@shared_ingredient_heirarchy[1..-1][i].ingredient_id) %></li>
+                  <% end %>
+                <% end %>
+          </ul> <!-- type -->
+      </ul> <!-- family -->
+    </ul> <!-- category -->
+    <% end %>
