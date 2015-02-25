@@ -5,7 +5,7 @@ class CocktailsController < ApplicationController
   # GET /cocktails
   # GET /cocktails.json
   def index
-    @cocktails = Cocktail.all#.order("priority asc, rating desc")
+    @cocktails = Cocktail.all.includes(:cocktail_source, :glass, :ingredients)
   end
 
   # GET /cocktails/1

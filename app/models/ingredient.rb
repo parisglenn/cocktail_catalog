@@ -50,6 +50,21 @@ class Ingredient < ActiveRecord::Base
 		")
 	end
 
+	def self.shared_ingredient_heirarchy ingredients
+		ing_list = ingredients.join ', '
+		Ingredient.find_by_sql(["with shared_ingredients as (select * from ingredients_to_cocktails where ingredient_id not in (?))
+			select i.name ingredient_name, i.id ingredient_id, its.name type_name, its.id type_id, ifs.name family_name, ifs.id family_id
+			from ingredients_to_cocktails itc
+			left join shared_ingredients si on itc.cocktail_id = si.cocktail_id 
+			left join ingredients i on i.id = si.ingredient_id
+			left join ingredient_types its on its.id = i.ingredient_type_id
+			left join ingredient_families ifs on ifs.id = its.ingredient_family_id
+			where itc.ingredient_id in (?)
+			group by 1,2,3,4,5, 6
+			order by ifs.id, its.id, i.id", ing_list, ing_list]
+		)
+	end
+
 	def filtered_shared_ingredients cocktails
 		cocktails.map { |c| c.ingredients }.flatten.uniq.reject { |b| b.id == self.id } 
 	end

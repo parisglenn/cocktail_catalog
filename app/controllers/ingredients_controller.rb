@@ -19,6 +19,8 @@ class IngredientsController < ApplicationController
     @filtered_ingredient_types = @ingredient.ingredient_type.filtered_ingredient_types(@filtered_cocktails)
     @filtered_ingredient_families = @ingredient.ingredient_type.ingredient_family.filtered_ingredient_families(@filtered_cocktails)
     @filtered_modifications = IngredientModification.filtered_modifications(@filtered_cocktails)
+
+    @shared_ingredient_heirarchy = Ingredient.shared_ingredient_heirarchy [@ingredient.id]
   end
 
   # GET /ingredients/new
