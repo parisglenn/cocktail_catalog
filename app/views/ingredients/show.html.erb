@@ -53,54 +53,14 @@
 
  <div class="span4">
 
-    <% if @shared_ingredient_heirarchy %>
-      <h3> Shared (<%=@shared_ingredient_heirarchy.count%>)</h3>
-      <ul> <!-- open category children -->
-        <li> <%= link_to @shared_ingredient_heirarchy[0].family_name, ingredient_family_path(@shared_ingredient_heirarchy[0].family_id) %> </li>
-          <ul> <!-- open family children -->
-            <li> <%= link_to @shared_ingredient_heirarchy[0].type_name, ingredient_type_path(@shared_ingredient_heirarchy[0].type_id) %> </li>
-              <ul> <!-- open type children -->
-                <li> <%= link_to @shared_ingredient_heirarchy[0].ingredient_name, ingredient_path(@shared_ingredient_heirarchy[0].ingredient_id) %> </li>
+  <%= render partial: 'ingredients/shared_heirarchy', locals: {shared_ingredient_heirarchy: @shared_ingredient_heirarchy, no_ingredient_filter: @no_ingredient_filter, no_ingredient_type_filter: @no_ingredient_type_filter, no_ingredient_family_filter: @no_ingredient_family_filter} %>
+</div>
 
-                <% @shared_ingredient_heirarchy[1..-1].each_with_index do |si, i| %>
-                  <% if @shared_ingredient_heirarchy[i].type_id == @shared_ingredient_heirarchy[1..-1][i].type_id %>
-                    <li> <%= link_to @shared_ingredient_heirarchy[1..-1][i].ingredient_name, ingredient_path(@shared_ingredient_heirarchy[1..-1][i].ingredient_id) %></li>
-                  <% elsif @shared_ingredient_heirarchy[i].family_id == @shared_ingredient_heirarchy[1..-1][i].family_id %>
-                   </ul><!-- close type children -->
-                    <li> <%= link_to @shared_ingredient_heirarchy[1..-1][i].type_name, ingredient_type_path(@shared_ingredient_heirarchy[1..-1][i].type_id) %></li>
-                    <ul><!-- open type children -->
-                      <li> <%= link_to @shared_ingredient_heirarchy[1..-1][i].ingredient_name, ingredient_path(@shared_ingredient_heirarchy[1..-1][i].ingredient_id) %></li>
-                  <% else %>
-                    </ul><!-- close type children -->
-                  </ul><!-- close family children -->
-                  <li> <%= link_to @shared_ingredient_heirarchy[1..-1][i].family_name, ingredient_family_path(@shared_ingredient_heirarchy[1..-1][i].family_id) %> </li>
-                  <ul> <!-- open family children -->
-                  <li> <%= link_to @shared_ingredient_heirarchy[1..-1][i].type_name, ingredient_type_path(@shared_ingredient_heirarchy[1..-1][i].type_id) %></li>
-                    <ul><!-- open type children -->
-                     <li> <%= link_to @shared_ingredient_heirarchy[1..-1][i].ingredient_name, ingredient_path(@shared_ingredient_heirarchy[1..-1][i].ingredient_id) %></li>
-                  <% end %>
-                <% end %>
-          </ul> <!-- type -->
-      </ul> <!-- family -->
-    </ul> <!-- category -->
-    <% end %>
-  </div>
-
- <!--  <div class="span3">
-    <%= render partial: 'ingredients/ingredient_list', locals: {filtered_shared_ingredients: @filtered_shared_ingredients, no_ingredient_filter: @no_ingredient_filter} %>
-  </div>
-
-  <div class="span3">
-    <%= render partial: 'ingredient_types/types_list', locals: {filtered_ingredient_types: @filtered_ingredient_types, no_ingredient_type_filter: @no_ingredient_type_filter} %>
-  </div>
-
-
-  <div class="span3">
-    <%= render partial: 'ingredient_families/families_list', locals: {filtered_ingredient_families: @filtered_ingredient_families, no_ingredient_family_filter: @no_ingredient_family_filter} %>
+  <div class="span4">
 
     <% unless @filtered_modifications.empty? %>
       <%= render partial: 'ingredient_modifications/modifications_list', locals: {filtered_modifications: @filtered_modifications, no_modification_filter: @no_modification_filter} %>
     <% end %>
-  </div> -->
+  </div> 
 
 </div>
