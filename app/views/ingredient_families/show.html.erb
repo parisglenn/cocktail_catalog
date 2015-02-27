@@ -23,7 +23,7 @@
   <% end %>
 
 <div class="row-fluid">
-  <div class="span3">
+  <div class="span4">
     <p>
       <h1>Cocktails: (<%= @filtered_cocktails.count %>)</h1>
         <ul>
@@ -34,38 +34,17 @@
     </p>
   </div>
 
-  <div class="span3">
 
-    <p>
-      <h1>Child Ingredients Types: (<%= @ingredient_family.ingredient_types.count %>)</h1>
-        <ul>
-          <% @ingredient_family.ingredient_types.sort_by{ |i| -i.cocktails_count }.each do |ingredient_type| %>
-          <li> <%= link_to ingredient_type.name, ingredient_type_path(ingredient_type.id) %>  (has <%= ingredient_type.ingredients.count %> ingredients in <%= ingredient_type.cocktails_count %> cocktails)</li>
-          <% end %>
-        </ul>
-    </p>
-    <p>
-      <h1> Child Ingredients: (<%= @ingredient_family.ingredients.count %>)</h1>
-        <ul>
-          <% @ingredient_family.ingredients.each do |i| %>
-              <li> <%= link_to i.show(true), ingredient_path(i.id) %> </li>
-          <% end %>
-        </ul>
-    </p>
-  </div>
+ <div class="span4">
 
-  <div class="span3">
+  <%= render partial: 'ingredients/shared_heirarchy', locals: {shared_ingredient_heirarchy: @shared_ingredient_heirarchy, no_ingredient_filter: @no_ingredient_filter, no_ingredient_type_filter: @no_ingredient_type_filter, no_ingredient_family_filter: @no_ingredient_family_filter} %>
+</div>
+
+  <div class="span4">
 
     <% unless @filtered_modifications.empty? %>
       <%= render partial: 'ingredient_modifications/modifications_list', locals: {filtered_modifications: @filtered_modifications, no_modification_filter: @no_modification_filter} %>
     <% end %>
-    
-    <%= render partial: 'ingredient_types/types_list', locals: {filtered_ingredient_types: @filtered_ingredient_types, no_ingredient_type_filter: @no_ingredient_type_filter} %>
-  </div>
-
-
-  <div class="span3">
-    <%= render partial: 'ingredients/ingredient_list', locals: {filtered_shared_ingredients: @filtered_shared_ingredients, no_ingredient_filter: @no_ingredient_filter} %>
   </div>
 
 </div>
