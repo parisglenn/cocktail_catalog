@@ -29,15 +29,21 @@ $(function(){
 	$(".chosen-select").trigger("chosen:updated");
 });
 
-  function cocktailFilter(itype, id){
-    var params = window.location.search;
-    var num='_1=';
-    var prepend='?';
-    if (params.indexOf(itype) > -1){
-      num='_2='
-    }
-    if (params.indexOf('?') > -1){
-      prepend='&'
-    }
-    window.location.replace(window.location.href+prepend+itype+num+id)
+function cocktailFilter(itype, id){
+  var params = window.location.search;
+  var num='_1=';
+  var prepend='?';
+  if (params.indexOf(itype) > -1){
+    num='_2='
   }
+  if (params.indexOf('?') > -1){
+    prepend='&'
+  }
+  window.location.replace(window.location.href+prepend+itype+num+id)
+}
+
+function toggleProcessLogHistory(row){
+  $('.'+row).toggle()
+  $('#caret-right-'+row).toggle()
+  $('#caret-down-'+row).toggle()
+}
