@@ -84,19 +84,6 @@ ActiveRecord::Schema.define(version: 20150121003335) do
     t.datetime "updated_at"
   end
 
-  create_table "ingredient_to_cocktail", force: true do |t|
-    t.integer  "ingredient_id"
-    t.integer  "ingredient_modification_id"
-    t.string   "amount"
-    t.integer  "cocktail_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ingredient_to_cocktail", ["cocktail_id"], name: "index_ingredient_to_cocktail_on_cocktail_id", using: :btree
-  add_index "ingredient_to_cocktail", ["ingredient_id"], name: "index_ingredient_to_cocktail_on_ingredient_id", using: :btree
-  add_index "ingredient_to_cocktail", ["ingredient_modification_id"], name: "index_ingredient_to_cocktail_on_ingredient_modification_id", using: :btree
-
   create_table "ingredient_types", force: true do |t|
     t.string   "name"
     t.integer  "ingredient_family_id"
