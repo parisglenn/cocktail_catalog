@@ -25,7 +25,7 @@
 <div class="row-fluid">
   <div class="span4">
     <p>
-      <h1>Cocktails: (<%= @filtered_cocktails.count %>)</h1>
+      <h3>Cocktails: (<%= @filtered_cocktails.count %>)</h3>
         <ul>
           <% @filtered_cocktails.each do |cocktail| %>
           <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail } %> </li>
@@ -45,6 +45,18 @@
     <% unless @filtered_modifications.empty? %>
       <%= render partial: 'ingredient_modifications/modifications_list', locals: {filtered_modifications: @filtered_modifications, no_modification_filter: @no_modification_filter} %>
     <% end %>
+
+    <h3> Ingredient Children </h3>
+    <ul>
+      <% @ingredient_family.ingredient_types.each do |its| %>
+      <li> <%= link_to its.name, its %></li>
+      <ul>
+        <% its.ingredients.each do |ing| %>
+          <li> <%= link_to ing.name, ing %> </li>
+        <% end %>
+      </ul>
+      <% end %>
+    </ul>
   </div>
 
 </div>

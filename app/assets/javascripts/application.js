@@ -42,8 +42,8 @@ function cocktailFilter(itype, id){
   window.location.replace(window.location.href+prepend+itype+num+id)
 }
 
-function toggleProcessLogHistory(row){
+function toggleCocktailList(row){
   $('.'+row).toggle()
-  $('#caret-right-'+row).toggle()
-  $('#caret-down-'+row).toggle()
+  $('.caret-right-'+row).toggle()
+  $('.caret-down-'+row).toggle()
 }

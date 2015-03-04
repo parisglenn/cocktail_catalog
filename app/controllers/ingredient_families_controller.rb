@@ -1,6 +1,6 @@
 class IngredientFamiliesController < ApplicationController
   include CocktailsHelper
-  before_action :set_ingredient_family, only: [:show, :edit, :update, :destroy]
+  before_action :set_ingredient_family, only: [:edit, :update, :destroy] #:show, 
   before_action :set_ingredient_categories, only: [:new, :edit]
 
   # GET /ingredient_families
@@ -12,6 +12,8 @@ class IngredientFamiliesController < ApplicationController
   # GET /ingredient_families/1
   # GET /ingredient_families/1.json
   def show
+    @ingredient_family = IngredientFamily.#includes(:ingredient_types).
+      find params[:id]
     build_filter_hash params
     @filters = @filter_hash.values 
     @filtered_cocktails = filtered_cocktails(@ingredient_family, @filter_hash)

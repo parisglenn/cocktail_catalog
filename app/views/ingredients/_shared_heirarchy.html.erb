@@ -3,18 +3,26 @@
       <h3> Shared (<%=shared_ingredient_heirarchy.count%>)</h3>
       <p><span class="muted">Click <i class="icon-filter"></i> to filter <span></p>
       <ul> <!-- open category children -->
-        <li> <%= link_to shared_ingredient_heirarchy[0].family_name, ingredient_family_path(shared_ingredient_heirarchy[0].family_id) %> 
-          <% unless no_ingredient_family_filter %>
+        <div class="row-fluid">
+          <div class="span1">
+                <span class="caret-right pull-right"></span>
+                <span class="caret-down pull-right no-show"></span>
+          </div>
+          <div class="span11">
+            <li onclick="toggleCocktailList('family_children_<%=shared_ingredient_heirarchy[0].family_id%>')"> <%= link_to shared_ingredient_heirarchy[0].family_name, ingredient_family_path(shared_ingredient_heirarchy[0].family_id) %> 
+            <% unless no_ingredient_family_filter %>
             <i class="icon-filter" onclick="cocktailFilter('ingredient_family_filter',<%=shared_ingredient_heirarchy[0].family_id%>)"></i>
-          <% end %>
-        </li>
-          <ul> <!-- open family children -->
-            <li> <%= link_to shared_ingredient_heirarchy[0].type_name, ingredient_type_path(shared_ingredient_heirarchy[0].type_id) %> 
+            <% end %>
+            </li>
+          </div>
+        </div>
+          <ul class="family_children_<%=shared_ingredient_heirarchy[0].family_id%> no-show"> <!-- open family children -->
+            <li onclick="toggleCocktailList('type_children_<%=shared_ingredient_heirarchy[0].type_id%>')"> <%= link_to shared_ingredient_heirarchy[0].type_name, ingredient_type_path(shared_ingredient_heirarchy[0].type_id) %> 
               <% unless no_ingredient_type_filter %>
                 <i class="icon-filter" onclick="cocktailFilter('ingredient_type_filter',<%=shared_ingredient_heirarchy[0].type_id%>)"></i>
               <% end %>
             </li>
-              <ul> <!-- open type children -->
+              <ul class="type_children_<%=shared_ingredient_heirarchy[0].type_id%> no-show"> <!-- open type children -->
                 <li> <%= link_to shared_ingredient_heirarchy[0].ingredient_name, ingredient_path(shared_ingredient_heirarchy[0].ingredient_id) %> 
                   <% unless no_ingredient_filter %>
                     <i class="icon-filter" onclick="cocktailFilter('ingredient_filter',<%=shared_ingredient_heirarchy[0].ingredient_id%>)"></i>
@@ -36,7 +44,7 @@
                           <i class="icon-filter" onclick="cocktailFilter('ingredient_type_filter',<%=shared_ingredient_heirarchy[1..-1][i].type_id%>)"></i>
                         <% end %>
                     </li>
-                    <ul><!-- open type children -->
+                    <ul class="type_children_<%=shared_ingredient_heirarchy[1..-1][i].type_id%> no-show"><!-- open type children -->
                       <li> <%= link_to shared_ingredient_heirarchy[1..-1][i].ingredient_name, ingredient_path(shared_ingredient_heirarchy[1..-1][i].ingredient_id) %>
                         <% unless no_ingredient_filter %>
                           <i class="icon-filter" onclick="cocktailFilter('ingredient_filter',<%=shared_ingredient_heirarchy[1..-1][i].ingredient_id%>)"></i>
@@ -45,18 +53,18 @@
                   <% else %>
                     </ul><!-- close type children -->
                   </ul><!-- close family children -->
-                  <li> <%= link_to shared_ingredient_heirarchy[1..-1][i].family_name, ingredient_family_path(shared_ingredient_heirarchy[1..-1][i].family_id) %> 
+                  <li onclick="toggleCocktailList('family_children_<%=shared_ingredient_heirarchy[1..-1][i].family_id%>')"> <%= link_to shared_ingredient_heirarchy[1..-1][i].family_name, ingredient_family_path(shared_ingredient_heirarchy[1..-1][i].family_id) %> 
                     <% unless no_ingredient_family_filter %>
                       <i class="icon-filter" onclick="cocktailFilter('ingredient_family_filter',<%=shared_ingredient_heirarchy[1..-1][i].family_id%>)"></i>
                     <% end %>
                   </li>
-                  <ul> <!-- open family children -->
-                  <li> <%= link_to shared_ingredient_heirarchy[1..-1][i].type_name, ingredient_type_path(shared_ingredient_heirarchy[1..-1][i].type_id) %>
+                  <ul class="family_children_<%=shared_ingredient_heirarchy[1..-1][i].family_id%> no-show"> <!-- open family children -->
+                  <li onclick="toggleCocktailList('type_children_<%=shared_ingredient_heirarchy[1..-1][i].type_id%>')"> <%= link_to shared_ingredient_heirarchy[1..-1][i].type_name, ingredient_type_path(shared_ingredient_heirarchy[1..-1][i].type_id) %>
                         <% unless no_ingredient_type_filter %>
                           <i class="icon-filter" onclick="cocktailFilter('ingredient_type_filter',<%=shared_ingredient_heirarchy[1..-1][i].type_id%>)"></i>
                         <% end %>
                   </li>
-                    <ul><!-- open type children -->
+                    <ul class="type_children_<%=shared_ingredient_heirarchy[1..-1][i].type_id%> no-show"><!-- open type children -->
                      <li> <%= link_to shared_ingredient_heirarchy[1..-1][i].ingredient_name, ingredient_path(shared_ingredient_heirarchy[1..-1][i].ingredient_id) %>
                         <% unless no_ingredient_filter %>
                           <i class="icon-filter" onclick="cocktailFilter('ingredient_filter',<%=shared_ingredient_heirarchy[1..-1][i].ingredient_id%>)"></i>
