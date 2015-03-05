@@ -44,3 +44,12 @@
 .no-show {
     display: none;
 }
+
+.cocktail-filter-caret > span.caret-down, 
+.cocktail-filter-caret.expanded > span.caret-right {
+ display: none;
+}
+.cocktail-filter-caret.expanded > span.caret-down, 
+.cocktail-filter-caret > span.caret-right {
+ display: block;
+}

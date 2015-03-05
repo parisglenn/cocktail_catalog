@@ -12,6 +12,7 @@ class IngredientTypesController < ApplicationController
   # GET /ingredient_types/1
   # GET /ingredient_types/1.json
   def show
+    get_active_filters params
     @ingredient_type = IngredientType.includes(:ingredients).find params[:id]
     build_filter_hash params
     @filters = @filter_hash.values 

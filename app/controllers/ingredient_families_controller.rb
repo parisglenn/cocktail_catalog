@@ -14,6 +14,7 @@ class IngredientFamiliesController < ApplicationController
   def show
     @ingredient_family = IngredientFamily.#includes(:ingredient_types).
       find params[:id]
+    get_active_filters params
     build_filter_hash params
     @filters = @filter_hash.values 
     @filtered_cocktails = filtered_cocktails(@ingredient_family, @filter_hash)

@@ -1,5 +1,15 @@
 module CocktailsHelper
 
+	def get_active_filters params
+		@active_filters = []
+		@active_filters << "ingredient_filter_#{params[:ingredient_filter_1]}" if params[:ingredient_filter_1].present? 
+		@active_filters << "ingredient_filter_#{params[:ingredient_filter_2]}" if params[:ingredient_filter_2].present? 
+		@active_filters << "ingredient_type_filter_#{params[:ingredient_type_filter_1]}" if params[:ingredient_type_filter_1].present? 
+		@active_filters << "ingredient_type_filter_#{params[:ingredient_type_filter_2]}" if params[:ingredient_type_filter_2].present? 
+		@active_filters << "ingredient_family_filter_#{params[:ingredient_family_filter_1]}" if params[:ingredient_family_filter_1].present? 
+		@active_filters << "ingredient_family_filter_#{params[:ingredient_family_filter_2]}" if params[:ingredient_family_filter_2].present? 
+	end
+
 	def build_filter_hash params
 	    @filter_hash = {}
 	    @filter_hash[:ingredient_filter_1] = Ingredient.find params[:ingredient_filter_1] if params[:ingredient_filter_1].present? 

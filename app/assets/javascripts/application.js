@@ -27,6 +27,7 @@
 $(function(){
 	$(".chosen-select").chosen()
 	$(".chosen-select").trigger("chosen:updated");
+
 });
 
 function cocktailFilter(itype, id){
@@ -44,6 +45,7 @@ function cocktailFilter(itype, id){
 
 function toggleCocktailList(row){
   $('.'+row).toggle()
-  $('.caret-right-'+row).toggle()
-  $('.caret-down-'+row).toggle()
+  $('#'+row).toggleClass("expanded")
 }
+
+
