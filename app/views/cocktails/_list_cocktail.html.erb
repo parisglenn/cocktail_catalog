@@ -2,6 +2,10 @@
 <p> Priority: <%= cocktail.priority %> | Rating: <%= cocktail.rating %> </p>
 <ul>
 <% cocktail.ingredients_to_cocktails.each do |i| %>
-	<li> <%= link_to i.show, ingredient_path(i.ingredient_id) %></li>
+	<li> <%= link_to i.show, ingredient_path(i.ingredient_id) %>
+		<% unless no_ingredient_filter or active_filters.include? "ingredient_filter_#{i.ingredient_id}" %>
+            <i class="icon-filter" onclick="cocktailFilter('ingredient_filter',<%=i.ingredient_id%>)"></i>
+        <% end %>
+	</li>
 <% end %>
 </ul>

@@ -15,30 +15,24 @@
 
 <div class="row-fluid">
 
-  <div class="span3">
+  <div class="span4">
     <p>
-      <h1>Cocktails: (<%= @filtered_cocktails.count %>)</h1>
+      <h3>Cocktails: (<%= @filtered_cocktails.count %>)</h3>
         <ul>
           <% @filtered_cocktails.each do |cocktail| %>
-          <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail } %> </li>
+          <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail, active_filters: @active_filters, no_ingredient_filter: @no_ingredient_filter } %> </li>
           <% end %>
         </ul>
     </p>
   </div>
 
-  <div class="span3">
-    <%= render partial: 'ingredients/ingredient_list', locals: {filtered_shared_ingredients: @filtered_shared_ingredients, no_ingredient_filter: @no_ingredient_filter} %>
-  </div>
+ <div class="span4">
+
+  <%= render partial: 'ingredients/shared_heirarchy', locals: {shared_ingredient_heirarchy: @shared_ingredient_heirarchy, no_ingredient_filter: @no_ingredient_filter, no_ingredient_type_filter: @no_ingredient_type_filter, no_ingredient_family_filter: @no_ingredient_family_filter, active_filters: @active_filters} %>
+</div>
 
 
-  <div class="span3">
-    <%= render partial: 'ingredient_types/types_list', locals: {filtered_ingredient_types: @filtered_ingredient_types, no_ingredient_type_filter: @no_ingredient_type_filter} %>
-  </div>
-
-
-  <div class="span3">
-    <%= render partial: 'ingredient_families/families_list', locals: {filtered_ingredient_families: @filtered_ingredient_families, no_ingredient_family_filter: @no_ingredient_family_filter} %>
-
+  <div class="span4">
     <% unless @filtered_modifications.empty? %>
       <%= render partial: 'ingredient_modifications/modifications_list', locals: {filtered_modifications: @filtered_modifications, no_modification_filter: @no_modification_filter} %>
     <% end %>

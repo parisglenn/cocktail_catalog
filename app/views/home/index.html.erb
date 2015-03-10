@@ -1,51 +1,25 @@
-<!-- <div class="row-fluid">
-
-	<div class="span6">
-		<ul>
-		<li><%= link_to 'Create new ingredient', new_ingredient_path %></li>
-		<li><%= link_to 'Create new cocktail', new_cocktail_path %></li>
-		<li><%= link_to 'Create new ingredient type', new_ingredient_type_path %></li>
-		<li><%= link_to 'Create new ingredient family', new_ingredient_family_path %></li>
-		<li><%= link_to 'Create new ingredient category', new_ingredient_category_path %></li>
-		<li><%= link_to 'Create new ingredient modification', new_ingredient_modification_path %></li>
-		<li><%= link_to 'Create new glass', new_glass_path %></li>
-		<li><%= link_to 'Create new source', new_cocktail_source_path %></li>
-		</ul>
-	</div>
-
-	<div class="span6">
-		<ul>
-		<li><%= link_to 'All ingredients', ingredients_path %></li>
-		<li><%= link_to 'All cocktails', cocktails_path %></li>
-
-		</ul>		
-	</div>
-
-</div> -->
-
-
-
+<h3> All Ingredients </h3>
 <div class="row-fluid">
-	<div class="span6">
-		<h3>
-			Random Cocktail
-		</h3>
-	    <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: @cocktail } %> 
-	</div>
+
+ <div class="span6">
+
+  <%= render partial: 'ingredients/shared_heirarchy', locals: {shared_ingredient_heirarchy: @shared_ingredient_heirarchy, no_ingredient_filter: @no_ingredient_filter, no_ingredient_type_filter: @no_ingredient_type_filter, no_ingredient_family_filter: @no_ingredient_family_filter, active_filters: @active_filters} %>
+</div>
+
+
 	<div class="span6">
 		<h3>
 			Random Ingredient
 		</h3>
 	    <%= link_to @ingredient.name, @ingredient %> 
+	    
+		<h3>
+			Random Cocktail
+		</h3>
+	    <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: @cocktail, no_ingredient_filter: @no_ingredient_filter, active_filters: @active_filters } %> 
 	</div>
-</div>
-<h1> Spirits </h1>
-<div class="row-fluid">
-	<% @ingredient_families.each do |inf| %>
-		<p> 
-			<%= link_to inf.name, inf %>
-		</p>
-	<% end %>
+
+
 </div>
 
 <!-- if index % 4 is 0, end current row, then start a new row -->

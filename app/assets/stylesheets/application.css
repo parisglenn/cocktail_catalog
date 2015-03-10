@@ -53,3 +53,7 @@
 .cocktail-filter-caret > span.caret-right {
  display: block;
 }
+
+ul.filter-node {
+    list-style-type: none;
+}

@@ -45,7 +45,7 @@
       <h3>Cocktails: (<%=@filtered_cocktails.count%>)</h3>
         <ul>
           <% @filtered_cocktails.each do |cocktail| %>
-          <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail } %> </li>
+          <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail, active_filters: @active_filters, no_ingredient_filter: @no_ingredient_filter } %> </li>
           <% end %>
         </ul>
     </p>
