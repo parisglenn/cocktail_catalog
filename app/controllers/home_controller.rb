@@ -9,6 +9,8 @@ class HomeController < ApplicationController
 	    @no_ingredient_filter = true
 	    @no_ingredient_type_filter = true
 	    @no_ingredient_family_filter = true
+	    @no_ingredient_modification_filter = true
+	    @ingredient_modifications = IngredientModification.all
 	end
 
 end

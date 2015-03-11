@@ -1,13 +1,13 @@
 <h3> All Ingredients </h3>
 <div class="row-fluid">
 
- <div class="span6">
+ <div class="span10">
 
-  <%= render partial: 'ingredients/shared_heirarchy', locals: {shared_ingredient_heirarchy: @shared_ingredient_heirarchy, no_ingredient_filter: @no_ingredient_filter, no_ingredient_type_filter: @no_ingredient_type_filter, no_ingredient_family_filter: @no_ingredient_family_filter, active_filters: @active_filters} %>
+  <%= render partial: 'ingredients/shared_heirarchy', locals: {shared_ingredient_heirarchy: @shared_ingredient_heirarchy, no_ingredient_filter: @no_ingredient_filter, no_ingredient_type_filter: @no_ingredient_type_filter, no_ingredient_family_filter: @no_ingredient_family_filter, active_filters: @active_filters, no_ingredient_modification_filter: @no_ingredient_modification_filter, ingredient_modifications: @ingredient_modifications} %>
 </div>
 
 
-	<div class="span6">
+	<div class="span2">
 		<h3>
 			Random Ingredient
 		</h3>

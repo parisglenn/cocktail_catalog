@@ -1,6 +1,9 @@
 <% if shared_ingredient_heirarchy.first %>
+<%# span1, span2, span3 = false, false, false %>
   <h3> Filters (<%=shared_ingredient_heirarchy.count%>)</h3>
   <p><span class="muted">Click <i class="icon-filter"></i> to filter and <span class="caret-right muted"></span> to drill down</span></p>
+  <div class="row-fluid">
+
     <% shared_ingredient_heirarchy.each_with_index do |si, i| %>
      
       
@@ -45,12 +48,29 @@
           </div>
       
 
-      <% else %>
-        <% if i == 0 %>
-          <ul class='family_children_#{si.family_id} filter-node'>
-        <% else %>
-            </ul>
-          </ul>
+      <% else %> 
+        <% column = i.to_f/shared_ingredient_heirarchy.count %>
+        <% if column <= 0.33 and not @span1 %>
+          <div class="span3"> <!-- start span 1 -->
+            <ul class='category_children_1 filter-node'> <!-- open category children 1 -->
+          <% @span1 = true %> 
+
+        <% elsif 0.33 < column and column <= 0.67 and not @span2 %>
+          </ul> <!-- end first span ul -->
+          </div> <!-- end span 1 -->
+          <div class="span3"> <!-- start span 2 -->
+            <ul class='category_children_2 filter-node'> <!-- open category children 2 -->
+          <% @span2 = true %>
+        <% elsif column > 0.67 and not @span3 %>
+      </ul> <!-- end second span ul -->
+          </div> <!-- end span 2 -->
+          <div class="span3"> <!-- start span 3 -->
+            <ul class='category_children_3 filter-node'> <!-- open category children 3 -->
+          <% @span3 = true %>
+        <% end %>        
+        <% if i > 0 %>
+            </ul> <!-- close type children -->
+          </ul> <!-- close family children -->
         <% end %>
         <div class="row-fluid">
           <div class='span1 cocktail-filter-caret' id="family_children_<%=si.family_id%>" onclick="toggleCocktailList('family_children_<%=si.family_id%>')">
@@ -95,4 +115,17 @@
       </ul> <!-- type -->
     </ul> <!-- family -->
   </ul> <!-- category -->
+  </div> <!-- close span -->
+  <div class="span3">
+    <ul>
+      <% ingredient_modifications.each do |im| %>
+        <li> <%= link_to im.name, im %>
+          <% unless no_ingredient_modification_filter %>
+                <i class="icon-filter" onclick="cocktailFilter('ingredient_modification_filter',<%=im.id%>)"></i>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div> <!-- close row -->
 <% end %>
