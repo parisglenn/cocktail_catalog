@@ -2,7 +2,7 @@
 
 <div class="span6">
 		<h1>
-			Random Cocktail
+			Featured Cocktail
 		</h1>
 	    <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: @cocktail, no_ingredient_filter: @no_ingredient_filter, active_filters: @active_filters } %> 
 	</div>
@@ -13,7 +13,7 @@
  <div class="span6">
 
 		<h1>
-			Random Ingredient
+			Featured Ingredient
 		</h1>
 	    <%= link_to @ingredient.name, @ingredient %> 
 </div>
@@ -22,10 +22,22 @@
 
 <div class="row-fluid">
 
- <div class="span12">
+ <div class="span9">
 
-  <%= render partial: 'ingredients/shared_heirarchy', locals: {shared_ingredient_heirarchy: @shared_ingredient_heirarchy, no_ingredient_filter: @no_ingredient_filter, no_ingredient_type_filter: @no_ingredient_type_filter, no_ingredient_family_filter: @no_ingredient_family_filter, active_filters: @active_filters, no_ingredient_modification_filter: @no_ingredient_modification_filter, ingredient_modifications: @ingredient_modifications} %>
+  <%= render partial: 'ingredients/shared_heirarchy', locals: {shared_ingredient_heirarchy: @shared_ingredient_heirarchy, no_ingredient_filter: @no_ingredient_filter, no_ingredient_type_filter: @no_ingredient_type_filter, no_ingredient_family_filter: @no_ingredient_family_filter, active_filters: @active_filters, no_ingredient_modification_filter: @no_ingredient_modification_filter, ingredient_modifications: @ingredient_modifications, ingredient_families: @ingredient_families} %>
 </div>
+  <div class="span3">
+    <h3> Modifications (<%= @ingredient_modifications.count%>) </h3>
+    <ul>
+      <% @ingredient_modifications.each do |im| %>
+        <li> <%= link_to im.name, im %>
+          <% unless @no_ingredient_modification_filter %>
+                <i class="icon-filter" onclick="cocktailFilter('ingredient_modification_filter',<%=im.id%>)"></i>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
 
 

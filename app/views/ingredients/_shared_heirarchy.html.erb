@@ -4,6 +4,7 @@
   <p><span class="muted">Click <i class="icon-filter"></i> to filter and <span class="caret-right muted"></span> to drill down</span></p>
   <div class="row-fluid">
 <ul class='category_children_1 filter-node'> <!-- open category children 0 -->
+    <% family_count = 0 %>
     <% shared_ingredient_heirarchy.each_with_index do |si, i| %>
      
       
@@ -53,19 +54,21 @@
             </ul><!-- close type children -->
           </ul> <!-- close family children -->
         <% end %>
-        <% column = i.to_f/shared_ingredient_heirarchy.count %>
-        <% if column <= 0.33 and not @span1 %>
-          <div class="span3"> <!-- start span 1 -->
+        
+        <% column = family_count.to_f/ingredient_families.count %><!--  was i.to_f/ -->
+        <% if column < 0.30 and not @span1 %>
+          <div class="span4"> <!-- start span 1 -->
           <% @span1 = true %> 
-        <% elsif 0.33 < column and column <= 0.67 and not @span2 %>
+        <% elsif 0.30 <= column and column < 0.63 and not @span2 %>
           </div> <!-- end span 1 -->
-          <div class="span3"> <!-- start span 2 -->
+          <div class="span4"> <!-- start span 2 -->
           <% @span2 = true %>
-        <% elsif column > 0.67 and not @span3 %>
+        <% elsif column >= 0.63 and not @span3 %>
           </div> <!-- end span 2 -->
-          <div class="span3"> <!-- start span 3 -->
+          <div class="span4"> <!-- start span 3 -->
           <% @span3 = true %>
         <% end %>        
+        <% family_count += 1 %>
 
         <div class="row-fluid">
           <div class='span1 cocktail-filter-caret' id="family_children_<%=si.family_id%>" onclick="toggleCocktailList('family_children_<%=si.family_id%>')">
@@ -111,16 +114,6 @@
     </ul> <!-- family -->
   </ul> <!-- category -->
   <!-- </div> --> <!-- close span -->
-  <div class="span2">
-    <ul>
-      <% ingredient_modifications.each do |im| %>
-        <li> <%= link_to im.name, im %>
-          <% unless no_ingredient_modification_filter %>
-                <i class="icon-filter" onclick="cocktailFilter('ingredient_modification_filter',<%=im.id%>)"></i>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+
 </div> <!-- close row -->
 <% end %>

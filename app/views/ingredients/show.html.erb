@@ -40,6 +40,18 @@
 <%= link_to 'All Ingredients', ingredients_path %>
 
 <div class="row-fluid">
+  <div class="span9">
+<%= render partial: 'ingredients/shared_heirarchy', locals: {shared_ingredient_heirarchy: @shared_ingredient_heirarchy, no_ingredient_filter: @no_ingredient_filter, no_ingredient_type_filter: @no_ingredient_type_filter, no_ingredient_family_filter: @no_ingredient_family_filter, active_filters: @active_filters, ingredient_families: @filtered_ingredient_families} %>
+  </div>
+
+  <div class="span3">
+    <% unless @filtered_modifications.empty? %>
+      <%= render partial: 'ingredient_modifications/modifications_list', locals: {filtered_modifications: @filtered_modifications, no_modification_filter: @no_modification_filter} %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row-fluid">
   <div class="span4">
     <p>
       <h3>Cocktails: (<%=@filtered_cocktails.count%>)</h3>
@@ -50,17 +62,5 @@
         </ul>
     </p>
   </div>
-
- <div class="span4">
-
-  <%= render partial: 'ingredients/shared_heirarchy', locals: {shared_ingredient_heirarchy: @shared_ingredient_heirarchy, no_ingredient_filter: @no_ingredient_filter, no_ingredient_type_filter: @no_ingredient_type_filter, no_ingredient_family_filter: @no_ingredient_family_filter, active_filters: @active_filters} %>
-</div>
-
-  <div class="span4">
-
-    <% unless @filtered_modifications.empty? %>
-      <%= render partial: 'ingredient_modifications/modifications_list', locals: {filtered_modifications: @filtered_modifications, no_modification_filter: @no_modification_filter} %>
-    <% end %>
-  </div> 
 
 </div>
