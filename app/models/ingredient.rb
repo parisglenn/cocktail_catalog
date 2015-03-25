@@ -61,7 +61,8 @@ class Ingredient < ActiveRecord::Base
 			left join ingredient_families ifs on ifs.id = its.ingredient_family_id
 			where itc.cocktail_id in (#{cocktails.map(&:id).join ', '})
 			group by 1,2,3,4,5, 6
-			order by ifs.id, its.id, i.id"
+			order by ifs.name, its.name, i.name
+			--order by ifs.id, its.id, i.id"
 		)
 	end
 
