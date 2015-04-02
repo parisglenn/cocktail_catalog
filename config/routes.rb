@@ -1,4 +1,6 @@
 CocktailCatalog::Application.routes.draw do
+  resources :tags
+
   resources :cocktail_sources
 
   resources :glasses

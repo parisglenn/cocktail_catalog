@@ -18,6 +18,7 @@ class CocktailsController < ApplicationController
     @cocktail = Cocktail.new
     @ingredient = IngredientsToCocktail.new
     @ingredients = 12.times.map { |i| @ingredient }
+    @tags = Tag.all
   end
 
   # GET /cocktails/1/edit
@@ -26,6 +27,7 @@ class CocktailsController < ApplicationController
     empty = 12 - @ingredients.count
     @ingredient = IngredientsToCocktail.new
     @ingredients += empty.times.map { |i| @ingredient }
+    @tags = Tag.all
   end
 
   # POST /cocktails

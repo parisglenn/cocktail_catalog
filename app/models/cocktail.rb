@@ -3,9 +3,12 @@ class Cocktail < ActiveRecord::Base
 	has_many :ingredients_to_cocktails
 	has_many :ingredients, through: :ingredients_to_cocktails
 	has_many :ingredient_modifications, through: :ingredients_to_cocktails
+	has_many :tags_to_cocktails
+	has_many :tags, through: :tags_to_cocktails
 	belongs_to :glass
 	belongs_to :cocktail_source, foreign_key: 'source_id'
 	accepts_nested_attributes_for :ingredients_to_cocktails, :reject_if => :all_blank, :allow_destroy => true
+	accepts_nested_attributes_for :tags_to_cocktails, :reject_if => :all_blank, :allow_destroy => true
 	acts_as_commentable
 
 	def some_ingredients
