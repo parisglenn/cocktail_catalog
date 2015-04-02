@@ -35,7 +35,7 @@
 
       <p>
         <strong>Source:</strong>
-        <%= @cocktail.cocktail_source.name if @cocktail.cocktail_source %>
+        <%= link_to(@cocktail.cocktail_source.name, @cocktail.cocktail_source) if @cocktail.cocktail_source %>
       </p>
 
       <p>

@@ -7,3 +7,45 @@
 
 <%= link_to 'Edit', edit_cocktail_source_path(@cocktail_source) %> |
 <%= link_to 'Back', cocktail_sources_path %>
+
+<div class="row-fluid">
+  <div class="span9">
+<%= render partial: 'ingredients/shared_heirarchy', locals: {shared_ingredient_heirarchy: @shared_ingredient_heirarchy, no_ingredient_filter: @no_ingredient_filter, no_ingredient_type_filter: @no_ingredient_type_filter, no_ingredient_family_filter: @no_ingredient_family_filter, active_filters: @active_filters, ingredient_families: @filtered_ingredient_families} %>
+  </div>
+
+  <div class="span3">
+    <% unless @filtered_modifications.empty? %>
+      <%= render partial: 'ingredient_modifications/modifications_list', locals: {filtered_modifications: @filtered_modifications, no_modification_filter: @no_modification_filter} %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row-fluid">
+    <p>
+      <h3>Cocktails: (<%=@filtered_cocktails.count%>)</h3>
+
+        <% cocktail_count = 0 %>
+        <ul>
+          <% @filtered_cocktails.each do |cocktail| %>
+            <% column = cocktail_count.to_f/@filtered_cocktails.count %>
+            <% if column < 0.30 and not @cspan1 %>
+              <div class="span4"> <!-- start span 1 -->
+              <% @cspan1 = true %> 
+            <% elsif 0.30 <= column and column < 0.63 and not @cspan2 %>
+              </div> <!-- end span 1 -->
+              <div class="span4"> <!-- start span 2 -->
+              <% @cspan2 = true %>
+            <% elsif column >= 0.63 and not @cspan3 %>
+              </div> <!-- end span 2 -->
+              <div class="span4"> <!-- start span 3 -->
+              <% @cspan3 = true %>
+            <% end %>        
+            <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail, active_filters: @active_filters, no_ingredient_filter: @no_ingredient_filter } %> 
+            </li>
+            <% cocktail_count += 1 %>
+          <% end %>
+        </ul>
+    </p>
+  </div>
+
+</div>
