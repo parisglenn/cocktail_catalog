@@ -1,5 +1,9 @@
 <h3><%= link_to cocktail.name, cocktail_path(cocktail.id)%></h3>
-<p> Priority: <%= cocktail.priority %> | Rating: <%= cocktail.rating %> </p>
+<p>Source: <%= link_to cocktail.cocktail_source.name, cocktail.cocktail_source %> | Priority: <%= cocktail.priority %> 
+	<% if cocktail.rating.present? %>
+		| Rating: <%= cocktail.rating %> 
+		<% end %>
+</p>
 <ul>
 <% cocktail.ingredients_to_cocktails.each do |i| %>
 	<li> <%= link_to i.show, ingredient_path(i.ingredient_id) %>

@@ -51,6 +51,7 @@ class Ingredient < ActiveRecord::Base
 	end
 
 	def self.shared_ingredient_heirarchy ingredients, cocktails
+		cocktails = cocktails.empty? ? [Cocktail.new(id:0)] : cocktails
 		Ingredient.find_by_sql(
 			"with shared_ingredients as (select * from ingredients_to_cocktails where ingredient_id not in (#{ingredients.map(&:id).join ', '}))
 			select i.name ingredient_name, i.id ingredient_id, its.name type_name, its.id type_id, ifs.name family_name, ifs.id family_id
