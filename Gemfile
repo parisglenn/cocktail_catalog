@@ -49,7 +49,7 @@ gem 'formtastic', '~> 3.0'
 
 gem 'cocoon'
 
-gem 'pg'
+gem 'pg', '~> 0.17.1'
 
 gem 'acts_as_commentable_with_threading'
 
