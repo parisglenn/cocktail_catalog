@@ -73,6 +73,15 @@
       <%= f.label :priority %><br>
       <%= f.select :priority, options_for_select(@priority_dropdown, @cocktail.priority), {include_blank: "1 is high priority"}, class: 'chosen-select', style: 'width: 100px' %>
     </div>
+
+    <%= fields_for(@cocktail_tags) do |ct| %>
+      <div class="field">
+        <%= ct.label "All Tags" %><br>
+        <%#= f.collection_select(:tag_id, @tags, :id, :name, {}, {multiple: true})  %>
+        <%= collection_select(:tag, :id, @tags, :id, :name, {}, {multiple: true})  %>
+      </div>
+    <% end %>
+
     <div class="actions btn btn-info">
       <%= f.submit 'Save', class: 'btn btn-info' %>
     </div>

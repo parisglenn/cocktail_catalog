@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  include CocktailsHelper
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   # GET /tags
@@ -10,6 +11,15 @@ class TagsController < ApplicationController
   # GET /tags/1
   # GET /tags/1.json
   def show
+    get_active_filters params
+    build_filter_hash params
+    @filters = @filter_hash.values 
+    @filtered_cocktails = filtered_cocktails(@tag, @filter_hash)
+    @filtered_shared_ingredients = Ingredient.new.filtered_shared_ingredients(@filtered_cocktails)
+    @filtered_ingredient_types = IngredientType.new.filtered_ingredient_types(@filtered_cocktails)
+    @filtered_ingredient_families = IngredientFamily.new.filtered_ingredient_families(@filtered_cocktails)
+    @filtered_modifications = IngredientModification.filtered_modifications(@filtered_cocktails)
+    @shared_ingredient_heirarchy = Ingredient.shared_ingredient_heirarchy [Ingredient.new(id:0)], @filtered_cocktails
   end
 
   # GET /tags/new

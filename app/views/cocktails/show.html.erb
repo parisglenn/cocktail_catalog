@@ -28,6 +28,17 @@
         <blockquote><%= @cocktail.instructions %></blockquote>
       </p>
 
+      <% if @cocktail.tags.first %>
+        <p>
+          <strong>Tags:</strong>
+          <ul>
+          <% @cocktail.tags.each do |t| %>
+            <li><%= link_to t.name, t %></li> 
+          <% end %>
+        </ul>
+        </p>      
+      <% end %>
+
       <p>
         <strong>Glass:</strong>
         <%= link_to @cocktail.glass.name, @cocktail.glass %>

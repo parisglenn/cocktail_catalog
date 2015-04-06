@@ -19,6 +19,7 @@ class CocktailsController < ApplicationController
     @ingredient = IngredientsToCocktail.new
     @ingredients = 12.times.map { |i| @ingredient }
     @tags = Tag.all
+    @cocktail_tags = @cocktail.tags_to_cocktails.build
   end
 
   # GET /cocktails/1/edit
@@ -28,12 +29,18 @@ class CocktailsController < ApplicationController
     @ingredient = IngredientsToCocktail.new
     @ingredients += empty.times.map { |i| @ingredient }
     @tags = Tag.all
+    @cocktail_tags = @cocktail.tags_to_cocktails.build
   end
 
   # POST /cocktails
   # POST /cocktails.json
   def create
     @cocktail = Cocktail.new(cocktail_params)
+    params[:tag][:id].each do |tag|
+      unless tag.empty?
+        @cocktail.tags_to_cocktails.build(tag_id: tag)
+      end
+    end
 
     respond_to do |format|
       if @cocktail.save
@@ -50,6 +57,11 @@ class CocktailsController < ApplicationController
   # PATCH/PUT /cocktails/1
   # PATCH/PUT /cocktails/1.json
   def update
+    params[:tag][:id].each do |tag|
+      unless tag.empty?
+        @cocktail.tags_to_cocktails.build(tag_id: tag)
+      end
+    end
     respond_to do |format|
       if @cocktail.update(cocktail_params)
         manage_ingredients
