@@ -10,7 +10,8 @@
 	<header class="header">
 		<%= link_to 'Home', root_url %> | 
 		<%= link_to 'Cocktails', cocktails_path %> | 
-		<%= link_to 'Ingredients', ingredients_path %> 
+		<%= link_to 'Ingredients', ingredients_path %> |
+		<%= link_to 'Menu', tag_path(1) %> 
 	</header>
 	<div class="container">
 <%= yield %>

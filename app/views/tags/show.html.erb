@@ -1,12 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @tag.name %>
-</p>
+  <h1><%= @tag.name %></h1>
+
 
 <%= link_to 'Edit', edit_tag_path(@tag) %> |
-<%= link_to 'Back', tags_path %>
+<%= link_to 'All Tags', tags_path %>
+
+  <% if @filters.any? %>
+    <h4> Filtered by: </br>
+      --
+      <% @filters.each do |f| %>
+        <%= " #{f.name} -- " if f %> 
+      <% end %>
+    </h4>
+    <%= link_to 'Remove filters', @ingredient %></br></br>
+  <% end %>
 
 
 <div class="row-fluid">

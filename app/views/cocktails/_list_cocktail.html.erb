@@ -1,8 +1,13 @@
 <h3><%= link_to cocktail.name, cocktail_path(cocktail.id)%></h3>
-<p>Source: <%= link_to cocktail.cocktail_source.name, cocktail.cocktail_source %> | Priority: <%= cocktail.priority %> 
+<p>
+	<% if cocktail.tags.map(&:id).include? 1 %>
+		Menu | 
+	<% end %>
+	Source: <%= link_to cocktail.cocktail_source.name, cocktail.cocktail_source %> | Priority: <%= cocktail.priority %> 
 	<% if cocktail.rating.present? %>
 		| Rating: <%= cocktail.rating %> 
-		<% end %>
+	<% end %>
+
 </p>
 <ul>
 <% cocktail.ingredients_to_cocktails.each do |i| %>

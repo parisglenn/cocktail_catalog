@@ -36,14 +36,14 @@ class CocktailsController < ApplicationController
   # POST /cocktails.json
   def create
     @cocktail = Cocktail.new(cocktail_params)
-    params[:tag][:id].each do |tag|
+    params[:cocktail][:tags].each do |tag|
       unless tag.empty?
         @cocktail.tags_to_cocktails.build(tag_id: tag)
       end
     end
 
     respond_to do |format|
-      if @cocktail.save
+      if @cocktail.save and TagsToCocktail.create!({cocktail_id: @cocktail.id, tag_id: 17})
         manage_ingredients
         format.html { redirect_to @cocktail, notice: 'Cocktail was successfully created.' }
         format.json { render action: 'show', status: :created, location: @cocktail }
@@ -57,11 +57,13 @@ class CocktailsController < ApplicationController
   # PATCH/PUT /cocktails/1
   # PATCH/PUT /cocktails/1.json
   def update
-    params[:tag][:id].each do |tag|
+    @cocktail.tags_to_cocktails.destroy_all #how do i get rid of the need for this?
+    params[:cocktail][:tags].each do |tag|
       unless tag.empty?
         @cocktail.tags_to_cocktails.build(tag_id: tag)
       end
     end
+        
     respond_to do |format|
       if @cocktail.update(cocktail_params)
         manage_ingredients
@@ -93,7 +95,11 @@ class CocktailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cocktail_params
-      params.require(:cocktail).permit(:name, :description, :instructions, :glass_id, :source_id, :rating, :priority, ingredients_to_cocktails_attributes: [:id, :_destroy, :ingredient_id, :ingredient_modification_id, :cocktail_id, :amount])
+      params.require(:cocktail).permit(:name, :description, :instructions, :glass_id, :source_id, :rating, :priority, 
+        ingredients_to_cocktails_attributes: [:id, :_destroy, :ingredient_id, :ingredient_modification_id, :cocktail_id, :amount],
+        tags: [:cocktail_id, :tag_id, :id]
+        )
+      #params.require(:tag).permit(:id)
     end
 
     def set_dependents
