@@ -14,7 +14,7 @@ class TagsController < ApplicationController
     get_active_filters params
     build_filter_hash params
     @filters = @filter_hash.values 
-    @filtered_cocktails = filtered_cocktails(@tag, @filter_hash)
+    @filtered_cocktails = filtered_cocktails(@tag, @filter_hash).sort { |a,b| [b.rating.to_i, a.priority] <=> [a.rating.to_i, b.priority] }
     @filtered_shared_ingredients = Ingredient.new.filtered_shared_ingredients(@filtered_cocktails)
     @filtered_ingredient_types = IngredientType.new.filtered_ingredient_types(@filtered_cocktails)
     @filtered_ingredient_families = IngredientFamily.new.filtered_ingredient_families(@filtered_cocktails)

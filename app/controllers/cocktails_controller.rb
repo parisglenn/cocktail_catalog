@@ -44,6 +44,7 @@ class CocktailsController < ApplicationController
 
     respond_to do |format|
       if @cocktail.save and TagsToCocktail.create!({cocktail_id: @cocktail.id, tag_id: 17})
+        # unless rating.blank? and @cocktail.tags.map(&:id).include? {id of been made}
         manage_ingredients
         format.html { redirect_to @cocktail, notice: 'Cocktail was successfully created.' }
         format.json { render action: 'show', status: :created, location: @cocktail }

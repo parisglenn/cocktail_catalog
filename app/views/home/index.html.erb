@@ -29,7 +29,7 @@
   <div class="span3">
     <h3> Modifications (<%= @ingredient_modifications.count%>) </h3>
     <ul>
-      <% @ingredient_modifications.each do |im| %>
+      <% @ingredient_modifications.sort{|a,b| a.name <=> b.name}.each do |im| %>
         <li> <%= link_to im.name, im %>
           <% unless @no_ingredient_modification_filter %>
                 <i class="icon-filter" onclick="cocktailFilter('ingredient_modification_filter',<%=im.id%>)"></i>

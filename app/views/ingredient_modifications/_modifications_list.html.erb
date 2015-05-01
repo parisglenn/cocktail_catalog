@@ -2,7 +2,7 @@
   <h3> Modifications (<%= filtered_modifications.count %>)</h3>
   <p><span class="muted">Click <i class="icon-filter"></i> to filter <span></p>
     <ul>
-      <% filtered_modifications.each do |m| %>
+      <% filtered_modifications.sort{|a,b| a.name <=> b.name}.each do |m| %>
         <li> 
           <%= link_to m.name, ingredient_modification_path(m.id) %> 
           <% unless no_modification_filter %>
