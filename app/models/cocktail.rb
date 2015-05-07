@@ -10,6 +10,13 @@ class Cocktail < ActiveRecord::Base
 	accepts_nested_attributes_for :ingredients_to_cocktails, :reject_if => :all_blank, :allow_destroy => true
 	accepts_nested_attributes_for :tags_to_cocktails, :reject_if => :all_blank, :allow_destroy => true
 	acts_as_commentable
+	after_save :all_cocktails
+
+	def all_cocktails
+		unless tags.map(&:id).include? 17
+			TagsToCocktail.create!({cocktail_id: id, tag_id: 17})
+		end
+	end
 
 	def some_ingredients
 		ingredients.map{|i| i.name}.join(', ')[0..60]+'...'
