@@ -13,7 +13,7 @@ class Cocktail < ActiveRecord::Base
 	after_save :all_cocktails
 
 	def all_cocktails
-		unless tags.map(&:id).include? 17
+		unless tags_to_cocktails.map(&:tag_id).include? 17
 			TagsToCocktail.create!({cocktail_id: id, tag_id: 17})
 		end
 	end

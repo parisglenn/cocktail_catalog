@@ -11,6 +11,7 @@ class CocktailsController < ApplicationController
   # GET /cocktails/1
   # GET /cocktails/1.json
   def show
+    @ingredients = @cocktail.ingredients
   end
 
   # GET /cocktails/new
@@ -41,7 +42,6 @@ class CocktailsController < ApplicationController
         @cocktail.tags_to_cocktails.build(tag_id: tag)
       end
     end
-
     respond_to do |format|
       if @cocktail.save
         # unless rating.blank? and @cocktail.tags.map(&:id).include? {id of been made}
@@ -64,14 +64,13 @@ class CocktailsController < ApplicationController
         @cocktail.tags_to_cocktails.build(tag_id: tag)
       end
     end
-        
     respond_to do |format|
+      manage_ingredients
       if @cocktail.update(cocktail_params) 
-        manage_ingredients
         format.html { redirect_to @cocktail, notice: 'Cocktail was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        format.html { redirect_to edit_cocktail_url @cocktail } 
         format.json { render json: @cocktail.errors, status: :unprocessable_entity }
       end
     end
@@ -113,7 +112,9 @@ class CocktailsController < ApplicationController
     end
 
     def manage_ingredients
+      @ingredients = @cocktail.ingredients
       @cocktail.ingredients_to_cocktails.destroy_all
+      #binding.pry
       params.each do |k, v|
         if k.include? 'ingredient'
           v.each do |k1, v1|
