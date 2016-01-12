@@ -36,7 +36,7 @@ module CocktailsHelper
 
 	def filtered_cocktails(obj, filter_hash={})
 		if filter_hash.values.none?
-			return obj.cocktails.uniq.sort { |a,b| a.priority <=> b.priority }
+			return obj.cocktails.uniq.sort { |a,b| [b.rating.to_i, a.priority] <=> [a.rating.to_i, b.priority] }
 		else
 			#clean up how these lists are created
 			qualifying_cocktails = []
@@ -94,7 +94,7 @@ module CocktailsHelper
 					qualifying_cocktails << c
 				end
 			end
-			return qualifying_cocktails.uniq.sort { |a,b| a.priority <=> b.priority }
+			return qualifying_cocktails.uniq.sort { |a,b| [b.rating.to_i, a.priority] <=> [a.rating.to_i, b.priority] }
 		end
 	end
 end

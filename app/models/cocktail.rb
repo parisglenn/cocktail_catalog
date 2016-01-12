@@ -21,4 +21,8 @@ class Cocktail < ActiveRecord::Base
 	def some_ingredients
 		ingredients.map{|i| i.name}.join(', ')[0..60]+'...'
 	end
+
+	def ratings
+		rating || -1
+	end
 end
