@@ -1,7 +1,7 @@
 <h3><%= link_to cocktail.name, cocktail_path(cocktail.id)%></h3>
 <p>
-	<% if cocktail.tags.map(&:id).include? 1 %>
-		<%= link_to "Menu", tag_path(1)%> | 
+	<% if cocktail.tags.map(&:id).include? 32 %>
+		<%= link_to "Menu", tag_path(32)%> | 
 	<% end %>
 	Source: <%= link_to cocktail.cocktail_source.name, cocktail.cocktail_source %> | Priority: <%= cocktail.priority %> 
 	<% if cocktail.rating.present? %>
