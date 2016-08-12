@@ -21,6 +21,10 @@ CocktailCatalog::Application.routes.draw do
 
   root :to => "home#index"
 
+  get '/ondeck', to: redirect('/tags/18')
+
+  get '/menu', to: redirect('/tags/1')
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
