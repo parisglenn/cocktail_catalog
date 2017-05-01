@@ -2,11 +2,13 @@
 
 <h1>Modification:  <%= @ingredient_modification.name %> </h1>
 
+<p>Description:  <%= @ingredient_modification.description %> </p>
+
 <% if @filters.any? %>
     <h4> Filtered by: </br>
       --
       <% @filters.each do |f| %>
-        <%= " #{f.name} -- " if f %> 
+        <%= " #{f.name} -- " if f %>
       <% end %>
     </h4>
     <%= link_to 'Remove filters', @ingredient_modification %></br></br>
@@ -37,7 +39,7 @@
             <% column = cocktail_count.to_f/@filtered_cocktails.count %>
             <% if column < 0.30 and not @cspan1 %>
               <div class="span4"> <!-- start span 1 -->
-              <% @cspan1 = true %> 
+              <% @cspan1 = true %>
             <% elsif 0.30 <= column and column < 0.63 and not @cspan2 %>
               </div> <!-- end span 1 -->
               <div class="span4"> <!-- start span 2 -->
@@ -46,8 +48,8 @@
               </div> <!-- end span 2 -->
               <div class="span4"> <!-- start span 3 -->
               <% @cspan3 = true %>
-            <% end %>        
-            <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail, active_filters: @active_filters, no_ingredient_filter: @no_ingredient_filter } %> 
+            <% end %>
+            <li> <%= render partial: 'cocktails/list_cocktail', locals: {cocktail: cocktail, active_filters: @active_filters, no_ingredient_filter: @no_ingredient_filter } %>
             </li>
             <% cocktail_count += 1 %>
           <% end %>
@@ -56,5 +58,3 @@
   </div>
 
 </div>
-
-

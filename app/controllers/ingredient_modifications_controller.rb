@@ -13,13 +13,13 @@ class IngredientModificationsController < ApplicationController
   def show
     build_filter_hash params
     get_active_filters params
-    @filters = @filter_hash.values 
+    @filters = @filter_hash.values
     @filtered_cocktails = filtered_cocktails(@ingredient_modification, @filter_hash)
     @filtered_shared_ingredients = Ingredient.new.filtered_shared_ingredients(@filtered_cocktails)
     @filtered_ingredient_types = IngredientType.new.filtered_ingredient_types(@filtered_cocktails)
     @filtered_ingredient_families = IngredientFamily.new.filtered_ingredient_families(@filtered_cocktails)
     @filtered_modifications = IngredientModification.filtered_modifications(@filtered_cocktails).reject { |i| i == @ingredient_modification}
-    @shared_ingredient_heirarchy = Ingredient.shared_ingredient_heirarchy [Ingredient.new(id:0)], @filtered_cocktails   
+    @shared_ingredient_heirarchy = Ingredient.shared_ingredient_heirarchy [Ingredient.new(id:0)], @filtered_cocktails
 
   end
 
@@ -80,6 +80,6 @@ class IngredientModificationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ingredient_modification_params
-      params.require(:ingredient_modification).permit(:name)
+      params.require(:ingredient_modification).permit(:name, :description)
     end
 end
